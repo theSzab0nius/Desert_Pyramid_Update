@@ -1,0 +1,40 @@
+{
+	"schemaVersion": 1,
+	"id": "desert_pyramid_update",
+	"version": "${version}",
+	"name": "desert_pyramid_update",
+	"description": "This is a small mod which adds a hypothetical update to the deserts, and the desert pyramid, aiming to stay in a Mojang approved style",
+	"authors": [
+		"MossClock"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "MIT",
+	"icon": "assets/desert_pyramid_update/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.mossclock.desert_pyramid_update.Desert_pyramid_update"
+		],
+		"fabric-datagen": [
+			"net.mossclock.desert_pyramid_update.Desert_pyramid_updateDataGenerator"
+		],
+      "client": [
+        "net.mossclock.desert_pyramid_update.Desert_pyramid_client"
+      ]
+	},
+	"mixins": [
+		"desert_pyramid_update.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.18.1",
+		"minecraft": "~1.21",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
