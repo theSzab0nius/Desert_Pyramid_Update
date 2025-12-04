@@ -2,6 +2,7 @@ package net.mossclock.desert_pyramid_update;
 
 import net.fabricmc.api.ModInitializer;
 
+import net.mossclock.desert_pyramid_update.item.ModItems;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,6 +19,6 @@ public class Desert_pyramid_update implements ModInitializer {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
-
+        ModItems.registerModItems();
 	}
 }
