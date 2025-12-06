@@ -18,40 +18,33 @@ public record CobraStrike() implements EnchantmentEntityEffect {
 
     @Override
     public void apply(ServerWorld world, int level, EnchantmentEffectContext context, Entity user, Vec3d pos) {
+        if (user instanceof LivingEntity victim) {
+            int duration;
+            int amplifier;
 
-        if (user instanceof LivingEntity target) {
-            if (level == 1) {
-                double chance = 0.05;
-                if (world.random.nextDouble() < chance) {
-                    int duration = 40; // 2 seconds in ticks
-                    int amplifier = 0; // Poison I
-
-                    // Apply the poison effect to the target
-                    target.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, duration, amplifier));
+            switch (level) {
+                case 1 -> {
+                    duration = 40;
+                    amplifier = 0;
+                } // 2 sec, Poison I
+                case 2 -> {
+                    duration = 80;
+                    amplifier = 1;
+                } // 4 sec, Poison II
+                case 3 -> {
+                    duration = 120;
+                    amplifier = 2;
+                } // 6 sec, Poison III
+                default -> {
+                    duration = 40;
+                    amplifier = 0;
                 }
             }
-            if(level == 2) {
-                double chance = 0.05;
-                if (world.random.nextDouble() < chance) {
-                    int duration = 80; // 2 seconds in ticks
-                    int amplifier = 0; // Poison I
 
-                    // Apply the poison effect to the target
-                    target.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, duration, amplifier));
-                }
-            }
-            if(level == 3) {
-                double chance = 0.05;
-                if (world.random.nextDouble() < chance) {
-                    int duration = 80; // 2 seconds in ticks
-                    int amplifier = 1; // Poison I
-
-                    // Apply the poison effect to the target
-                    target.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, duration, amplifier));
-                }
-            }
+            victim.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, duration, amplifier));
         }
     }
+
 
     @Override
     public MapCodec<? extends EnchantmentEntityEffect> getCodec() {

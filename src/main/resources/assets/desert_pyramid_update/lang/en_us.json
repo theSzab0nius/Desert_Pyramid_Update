@@ -8,5 +8,8 @@
 
   "block.desert_pyramid_update.layered_sand": "Sand Layer",
 
-  "enchantment.desert_pyramid_update.cobra_strike": "Cobra Strike"
+  "enchantment.desert_pyramid_update.cobra_strike": "Cobra Strike",
+
+  "item.desert_pyramid_update.ancient_scroll": "Ancient Scroll",
+  "item.desert_pyramid_update.tattered_ancient_scroll": "Tattered Ancient Scroll"
 }

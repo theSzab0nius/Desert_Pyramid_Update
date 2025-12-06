@@ -9,21 +9,20 @@ import net.minecraft.enchantment.effect.EnchantmentEffectTarget;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.EnchantmentTags;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.util.Identifier;
 
 public class ModEnchantments {
-    public static final RegistryKey<Enchantment> LIGHTNING_STRIKER =
-            RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Desert_pyramid_update.MOD_ID, "lightning_striker"));
+    public static final RegistryKey<Enchantment> COBRA_STRIKE =
+            RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Desert_pyramid_update.MOD_ID, "cobra_strike"));
 
     public static void bootstrap(Registerable<Enchantment> registerable) {
         var enchantments = registerable.getRegistryLookup(RegistryKeys.ENCHANTMENT);
         var items = registerable.getRegistryLookup(RegistryKeys.ITEM);
 
-        register(registerable, LIGHTNING_STRIKER, Enchantment.builder(Enchantment.definition(
+        register(registerable, COBRA_STRIKE, Enchantment.builder(Enchantment.definition(
                 items.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
-                null,
+                items.getOrThrow(ItemTags.SWORD_ENCHANTABLE),
                 0,
                 3,
                 Enchantment.leveledCost(5, 7),

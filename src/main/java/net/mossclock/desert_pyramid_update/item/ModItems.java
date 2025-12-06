@@ -12,6 +12,21 @@ import net.mossclock.desert_pyramid_update.block.ModBlocks;
 
 public class ModItems {
 
+    public static final Item ANCIENT_SCROLL = registerItem(
+            "ancient_scroll",
+            new Item(
+                    new Item.Settings()
+                            .maxCount(1)
+            )
+    );
+
+    public static final Item TATTERED_ANCIENT_SCROLL = registerItem(
+            "tattered_ancient_scroll",
+            new Item(
+                    new Item.Settings()
+                            .maxCount(1)
+            )
+    );
 
     public static final Item RUSTED_KHOPESH = registerItem(
             "rusted_khopesh",
@@ -115,6 +130,14 @@ public class ModItems {
 
     public static void registerModItems () {
         Desert_pyramid_update.LOGGER.info("Registering mod items for " + Desert_pyramid_update.MOD_ID);
+
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(entries -> {
+            entries.add(ANCIENT_SCROLL);
+        });
+
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(entries -> {
+            entries.add(TATTERED_ANCIENT_SCROLL);
+        });
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(entries -> {
             entries.add(RUSTED_KHOPESH);
