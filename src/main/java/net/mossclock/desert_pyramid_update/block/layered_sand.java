@@ -17,6 +17,7 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
+import net.mossclock.desert_pyramid_update.item.ModItems;
 
 public class layered_sand extends Block {  // ← Class name must match file name!
     public static final IntProperty LAYERS = IntProperty.of("layers", 1, 8);
@@ -66,13 +67,20 @@ public class layered_sand extends Block {  // ← Class name must match file nam
 
     @Override
     public boolean canReplace(BlockState state, ItemPlacementContext context) {
-        return state.get(LAYERS) < 8;
+        // Only allow stacking if the item being placed is OUR sand layer item
+        if (!context.shouldCancelInteraction()) {
+            ItemStack stack = context.getStack();
+            if (stack.isOf(ModBlocks.LAYERED_SAND_ITEM)) {  // ← change to your actual item reference
+                return state.get(LAYERS) < 8;
+            }
+        }
+        return false;
     }
 
 
     @Override
     public ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state) {
-        return new ItemStack(Items.SAND);
+        return new ItemStack(ModBlocks.LAYERED_SAND_ITEM);
     }
 
     @Override
@@ -90,6 +98,13 @@ public class layered_sand extends Block {  // ← Class name must match file nam
         if (!stateBelow.isSideSolidFullSquare(world, pos.down(), Direction.UP) && !stateBelow.isOf(this)) {
             world.breakBlock(pos, false); // break without dropping anything
         }
+    }
+    @Override
+    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
+        BlockState below = world.getBlockState(pos.down());
+        // Must have a full solid block below, OR another layered_sand below (to allow stacking)
+        return below.isSideSolidFullSquare(world, pos.down(), Direction.UP)
+                || below.isOf(this);
     }
 
 }
