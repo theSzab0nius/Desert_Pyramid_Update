@@ -1,14 +1,14 @@
 {
   "anvil_cost": 2,
   "description": {
-    "translate": "enchantment.desert_pyramid_update.cobra_strike"
+    "translate": "enchantment.desert_pyramid_update.sands_of_time"
   },
   "effects": {
     "minecraft:post_attack": [
       {
         "affected": "victim",
         "effect": {
-          "type": "desert_pyramid_update:cobra_strike"
+          "type": "desert_pyramid_update:sands_of_time"
         },
         "enchanted": "attacker"
       }

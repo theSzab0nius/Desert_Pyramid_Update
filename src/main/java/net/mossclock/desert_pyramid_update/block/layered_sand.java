@@ -67,14 +67,17 @@ public class layered_sand extends Block {  // ← Class name must match file nam
 
     @Override
     public boolean canReplace(BlockState state, ItemPlacementContext context) {
-        // Only allow stacking if the item being placed is OUR sand layer item
+        // This is what vanilla SnowBlock uses:
+        // - If holding our own item → allow stacking (up to 8)
+        // - Otherwise → only replace if it's a single layer
         if (!context.shouldCancelInteraction()) {
             ItemStack stack = context.getStack();
-            if (stack.isOf(ModBlocks.LAYERED_SAND_ITEM)) {  // ← change to your actual item reference
+            if (stack.isOf(ModBlocks.LAYERED_SAND_ITEM)) {
                 return state.get(LAYERS) < 8;
             }
         }
-        return false;
+        // ← THIS LINE IS KEY:
+        return state.get(LAYERS) == 1;
     }
 
 

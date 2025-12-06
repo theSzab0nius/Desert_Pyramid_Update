@@ -1,6 +1,7 @@
 package net.mossclock.desert_pyramid_update.item;
 
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.item.SwordItem;
@@ -14,7 +15,7 @@ public class ModItems {
 
     public static final Item ANCIENT_SCROLL = registerItem(
             "ancient_scroll",
-            new Item(
+            new ScrollItem(
                     new Item.Settings()
                             .maxCount(1)
             )
@@ -22,7 +23,7 @@ public class ModItems {
 
     public static final Item TATTERED_ANCIENT_SCROLL = registerItem(
             "tattered_ancient_scroll",
-            new Item(
+            new ScrollItem(
                     new Item.Settings()
                             .maxCount(1)
             )
