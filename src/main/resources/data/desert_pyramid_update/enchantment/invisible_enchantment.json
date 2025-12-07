@@ -1,25 +1,25 @@
 {
   "anvil_cost": 2,
   "description": {
-    "translate": "enchantment.desert_pyramid_update.cobra_strike"
+    "translate": "enchantment.desert_pyramid_update.invisible_enchantment"
   },
   "effects": {
     "minecraft:post_attack": [
       {
         "affected": "victim",
         "effect": {
-          "type": "desert_pyramid_update:cobra_strike"
+          "type": "desert_pyramid_update:invisible_enchantment"
         },
         "enchanted": "attacker"
       }
     ]
   },
-  "exclusive_set": "#desert_pyramid_update:custom_damage",
+  "exclusive_set": "#desert_pyramid_update:custom_khopesh",
   "max_cost": {
     "base": 25,
     "per_level_above_first": 9
   },
-  "max_level": 3,
+  "max_level": 1,
   "min_cost": {
     "base": 5,
     "per_level_above_first": 7

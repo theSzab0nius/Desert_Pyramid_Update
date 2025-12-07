@@ -3,6 +3,7 @@ package net.mossclock.desert_pyramid_update.enchantment;
 import com.mojang.serialization.MapCodec;
 import net.mossclock.desert_pyramid_update.Desert_pyramid_update;
 import net.mossclock.desert_pyramid_update.enchantment.custom.CobraStrike;
+import net.mossclock.desert_pyramid_update.enchantment.custom.PharaohsCurse;
 import net.mossclock.desert_pyramid_update.enchantment.custom.SandsOfTime;
 import net.minecraft.enchantment.effect.EnchantmentEntityEffect;
 import net.minecraft.registry.Registries;
@@ -16,6 +17,8 @@ public class ModEnchantmentEffects {
     public static final MapCodec<? extends EnchantmentEntityEffect> COBRA_STRIKE;
     public static final MapCodec<? extends EnchantmentEntityEffect> SANDS_OF_TIME;
     public static final MapCodec<? extends EnchantmentEntityEffect> SUN_FORGED;
+    public static final MapCodec<? extends EnchantmentEntityEffect> PHARAOHS_CURSE;
+    public static final MapCodec<? extends EnchantmentEntityEffect> INVISIBLE_ENCHANTMENT;
 
     // Add more here later if you want
     // public static final MapCodec<? extends EnchantmentEntityEffect> PHARAOHS_CURSE;
@@ -24,7 +27,8 @@ public class ModEnchantmentEffects {
         COBRA_STRIKE = register("cobra_strike", CobraStrike.CODEC);
         SANDS_OF_TIME = register("sands_of_time", SandsOfTime.CODEC);
         SUN_FORGED = register("sun_forged", SunForged.CODEC);
-        // PHARAOHS_CURSE = register("pharaohs_curse", PharaohsCurse.CODEC);
+        PHARAOHS_CURSE = register("pharaohs_curse", PharaohsCurse.CODEC);
+        INVISIBLE_ENCHANTMENT = register("invisible_enchantment", PharaohsCurse.CODEC);
     }
 
     private static <T extends EnchantmentEntityEffect> MapCodec<T> register(String name, MapCodec<T> codec) {

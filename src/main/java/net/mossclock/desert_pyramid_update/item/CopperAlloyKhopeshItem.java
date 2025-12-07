@@ -1,5 +1,7 @@
 package net.mossclock.desert_pyramid_update.item;
 
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -7,11 +9,13 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterial;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.world.World;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
+import net.mossclock.desert_pyramid_update.enchantment.ModEnchantments;
 
 /**
  * Khopesh with:
@@ -127,9 +131,28 @@ public class CopperAlloyKhopeshItem extends SwordItem {
         // (Optional) you could send attack-sweep sounds/particles here
     }
 
-    /**
-     * Tooltip describing the special properties.
-     * Signature matches the client-side tooltip signature in 1.21 mappings.
-     */
+    @Override
+    public boolean hasGlint(ItemStack stack) {
+
+        ItemEnchantmentsComponent enchants = EnchantmentHelper.getEnchantments(stack);
+
+        if (!EnchantmentHelper.hasEnchantments(stack)) {
+            return false; // no enchantments, no glint
+        }
+
+        int enchantmentCount = enchants.getEnchantmentEntries().size();
+
+        // If there is exactly one enchantment, and it is your invisible one, no glint
+        if (enchantmentCount == 1) {
+            Object2IntMap.Entry<RegistryEntry<Enchantment>> entry = enchants.getEnchantmentEntries().iterator().next();
+            RegistryKey<Enchantment> key = entry.getKey().getKey().get();
+            if (key.equals(ModEnchantments.INVISIBLE_ENCHANTMENT)) {
+                return false;
+            }
+        }
+
+        // All other cases -> glint
+        return true;
+    }
 
 }

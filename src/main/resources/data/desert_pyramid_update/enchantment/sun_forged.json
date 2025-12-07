@@ -24,10 +24,10 @@
     "base": 5,
     "per_level_above_first": 7
   },
-  "primary_items": "#minecraft:enchantable/sword",
+  "primary_items": "#desert_pyramid_update:custom_enchants",
   "slots": [
     "mainhand"
   ],
-  "supported_items": "#minecraft:enchantable/weapon",
+  "supported_items": "#desert_pyramid_update:custom_enchants",
   "weight": 1
 }

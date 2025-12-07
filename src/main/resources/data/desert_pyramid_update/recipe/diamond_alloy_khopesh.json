@@ -11,8 +11,11 @@
   ],
   "result": {
     "count": 1,
-    "id": "desert_pyramid_update:diamond_alloy_khopesh"
-
-  },
-  "fabric:copy_nbt": true
+    "id": "desert_pyramid_update:diamond_alloy_khopesh",
+    "components": {
+      "minecraft:enchantments": {
+        "desert_pyramid_update:invisible_enchantment": 1
+      }
+    }
+  }
 }

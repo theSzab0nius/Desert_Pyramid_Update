@@ -1,0 +1,14 @@
+{
+  "values": [
+    "desert_pyramid_update:copper_alloy_khopesh",
+    "desert_pyramid_update:iron_alloy_khopesh",
+    "desert_pyramid_update:gold_alloy_khopesh",
+    "desert_pyramid_update:diamond_alloy_khopesh",
+    "desert_pyramid_update:netherite_alloy_khopesh",
+    "#minecraft:swords",
+    "#minecraft:axes",
+    "#minecraft:pickaxes",
+    "#minecraft:shovels",
+    "#minecraft:hoes"
+  ]
+}

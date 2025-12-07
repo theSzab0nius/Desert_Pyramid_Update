@@ -38,6 +38,25 @@ public record SunForged() implements EnchantmentEntityEffect {
                     victim.addStatusEffect(new StatusEffectInstance(StatusEffects.INSTANT_DAMAGE, 1, amplifier, false, false));
             }
         }
+        else if (user instanceof LivingEntity victim  && victim.getType().isIn(EntityTypeTags.UNDEAD)) {
+            // Only apply if nothing is above your head and it's daytime
+            BlockPos attackerPos = user.getBlockPos();
+            boolean inDirectDaylight = world.isSkyVisible(attackerPos) &&
+                    world.getTimeOfDay() % 24000 < 12000; // daytime
+
+            int amplifier = 0;
+            if (inDirectDaylight) {
+                switch(level) {
+                    case 1 -> {
+                        amplifier = 0;
+                    } // 2 sec, Poison I
+                    case 2 -> {
+                        amplifier = 1;
+                    }
+                }
+                victim.addStatusEffect(new StatusEffectInstance(StatusEffects.INSTANT_HEALTH, 1, amplifier, false, false));
+            }
+        }
     }
 
 

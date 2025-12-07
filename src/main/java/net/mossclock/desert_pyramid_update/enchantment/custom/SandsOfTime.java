@@ -38,7 +38,7 @@ public record SandsOfTime() implements EnchantmentEntityEffect {
                 }
             }
 
-            victim.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, duration, amplifier));
+            victim.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, duration, amplifier, false, false));
         }
     }
 

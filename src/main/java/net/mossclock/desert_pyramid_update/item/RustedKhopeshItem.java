@@ -6,9 +6,11 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterial;
+import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -17,22 +19,15 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.mossclock.desert_pyramid_update.enchantment.ModEnchantments;
 
-/**
- * Khopesh with:
- *  - built-in sweeping attack (always) and scales with Sweeping Edge level if present
- *  - bonus damage vs armored targets (armor points * multiplier)
- *  - tooltip describing abilities
- *
- * Tailored to the SwordItem / EnchantmentHelper signatures you pasted from your environment.
- */
-public class GoldAlloyKhopeshItem extends SwordItem {
+
+public class RustedKhopeshItem extends SwordItem {
 
     // tweak these to taste
-    private static final float ARMOR_DAMAGE_BONUS_PER_POINT = 0.2f; // +0.1 damage per armor point
-    private static final float BASE_SWEEP_DAMAGE = 2.5f;            // damage dealt to swept mobs
-    private static final double BASE_SWEEP_RANGE = 3.2d;            // sweep search radius
+    private static final float ARMOR_DAMAGE_BONUS_PER_POINT = 0.0f; // +0.1 damage per armor point
+    private static final float BASE_SWEEP_DAMAGE = 0.0f;            // damage dealt to swept mobs
+    private static final double BASE_SWEEP_RANGE = 0.0d;            // sweep search radius
 
-    public GoldAlloyKhopeshItem(ToolMaterial material, Settings settings) {
+    public RustedKhopeshItem(ToolMaterial material, Settings settings) {
         super(material, settings);
     }
 
@@ -131,6 +126,8 @@ public class GoldAlloyKhopeshItem extends SwordItem {
         // (Optional) you could send attack-sweep sounds/particles here
     }
 
+
+
     @Override
     public boolean hasGlint(ItemStack stack) {
 
@@ -154,4 +151,5 @@ public class GoldAlloyKhopeshItem extends SwordItem {
         // All other cases -> glint
         return true;
     }
+
 }

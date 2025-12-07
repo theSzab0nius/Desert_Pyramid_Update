@@ -25,9 +25,9 @@ public class iron_alloy_khopesh_mat implements ToolMaterial {
     @Override
     public Ingredient getRepairIngredient() { return Ingredient.ofItems(Items.IRON_INGOT); }
 
-    // this is required by some mappings — match the exact signature in your ToolMaterial
-    // If your ToolMaterial declares this method, make sure the return type matches what your IDE shows.
     public TagKey<Block> getInverseTag() {
         return BlockTags.INCORRECT_FOR_WOODEN_TOOL;
     }
+
+
 }

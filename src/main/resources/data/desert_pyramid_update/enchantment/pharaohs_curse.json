@@ -1,33 +1,33 @@
 {
   "anvil_cost": 2,
   "description": {
-    "translate": "enchantment.desert_pyramid_update.cobra_strike"
+    "translate": "enchantment.desert_pyramid_update.pharaohs_curse"
   },
   "effects": {
     "minecraft:post_attack": [
       {
-        "affected": "victim",
+        "affected": "attacker",
         "effect": {
-          "type": "desert_pyramid_update:cobra_strike"
+          "type": "desert_pyramid_update:pharaohs_curse"
         },
         "enchanted": "attacker"
       }
     ]
   },
-  "exclusive_set": "#desert_pyramid_update:custom_damage",
+  "exclusive_set": "#minecraft:exclusive_set/damage",
   "max_cost": {
     "base": 25,
     "per_level_above_first": 9
   },
-  "max_level": 3,
+  "max_level": 1,
   "min_cost": {
     "base": 5,
     "per_level_above_first": 7
   },
-  "primary_items": "#desert_pyramid_update:custom_enchants",
+  "primary_items": "#desert_pyramid_update:tools",
   "slots": [
     "mainhand"
   ],
-  "supported_items": "#desert_pyramid_update:custom_enchants",
+  "supported_items": "#desert_pyramid_update:tools",
   "weight": 1
 }

@@ -2,5 +2,19 @@
   "parent": "minecraft:item/handheld",
   "textures": {
     "layer0": "desert_pyramid_update:item/iron_alloy_khopesh"
+  },
+  "components": {
+    "minecraft:enchantment_restrictions": {
+      "blocked": [
+        "desert_pyramid_update:sun_forged",
+        "minecraft:sharpness",
+        "minecraft:smite",
+        "minecraft:bane_of_arthropods",
+        "minecraft:impaling",
+        "minecraft:density",
+        "minecraft:breach",
+        "minecraft:fire_aspect"
+      ]
+    }
   }
-}
+  }

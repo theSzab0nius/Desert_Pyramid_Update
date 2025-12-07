@@ -31,7 +31,7 @@ public class ModItems {
 
     public static final Item RUSTED_KHOPESH = registerItem(
             "rusted_khopesh",
-            new SwordItem(
+            new RustedKhopeshItem(
                     RustedToolMaterial.INSTANCE,
                     new Item.Settings()
                             .maxCount(1)

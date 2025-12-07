@@ -41,7 +41,7 @@ public record CobraStrike() implements EnchantmentEntityEffect {
                 }
             }
 
-            victim.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, duration, amplifier));
+            victim.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, duration, amplifier, false, false));
         }
     }
 
