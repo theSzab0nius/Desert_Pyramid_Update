@@ -17,6 +17,10 @@ public class ModBlocks {
     public static final Block BOOBY_TRAP_DOOR = registerBlock("booby_trap_door",
             new booby_trap_door(AbstractBlock.Settings.create().strength(0f).sounds(BlockSoundGroup.SCAFFOLDING).nonOpaque()));
 
+    public static final Block BURIAL_URN = registerBlock("burial_urn",
+            new burial_urn(AbstractBlock.Settings.create().strength(0f).sounds(BlockSoundGroup.DECORATED_POT).nonOpaque()));
+
+
     public static final BlockItem BOOBY_TRAP_DOOR_ITEM = Registry.register(
             Registries.ITEM,
             Identifier.of(Desert_pyramid_update.MOD_ID, "booby_trap_door"),
@@ -28,6 +32,12 @@ public class ModBlocks {
             Registries.ITEM,
             Identifier.of(Desert_pyramid_update.MOD_ID, "layered_sand"),
             new BlockItem(LAYERED_SAND, new Item.Settings())
+    );
+
+    public static final Item BURIAL_URN_ITEM = Registry.register(
+            Registries.ITEM,
+            Identifier.of(Desert_pyramid_update.MOD_ID, "burial_urn"),
+            new BlockItem(BURIAL_URN, new Item.Settings())
     );
 
 

@@ -170,5 +170,8 @@ public class ModItems {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register(entries -> {
             entries.add(ModBlocks.BOOBY_TRAP_DOOR_ITEM);
         });
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register(entries -> {
+            entries.add(ModBlocks.BURIAL_URN_ITEM);
+        });
     }
 }
