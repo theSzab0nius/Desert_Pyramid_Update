@@ -10,6 +10,7 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.mossclock.desert_pyramid_update.block.ModBlocks;
+import net.mossclock.desert_pyramid_update.block.entity.ModBlockEntities;
 import net.mossclock.desert_pyramid_update.enchantment.ModEnchantmentEffects;
 import net.mossclock.desert_pyramid_update.item.IronAlloyKhopeshItem;
 import net.mossclock.desert_pyramid_update.item.ModItems;
@@ -32,6 +33,7 @@ public class Desert_pyramid_update implements ModInitializer {
         ModEnchantmentEffects.bootstrap();
         ModBlocks.registerModBlocks();
         ModItems.registerModItems();
+        ModBlockEntities.registerAll();
 
 
 	}

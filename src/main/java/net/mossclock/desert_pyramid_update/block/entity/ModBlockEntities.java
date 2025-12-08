@@ -1,10 +1,10 @@
-package net.mossclock.desert_pyramid_update.block;
+package net.mossclock.desert_pyramid_update.block.entity;
 
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
-import net.mossclock.desert_pyramid_update.block.entity.burial_urn_block_entity;
+import net.mossclock.desert_pyramid_update.block.ModBlocks;
 
 public class ModBlockEntities {
     public static BlockEntityType<burial_urn_block_entity> BURIAL_URN_ENTITY_TYPE;
