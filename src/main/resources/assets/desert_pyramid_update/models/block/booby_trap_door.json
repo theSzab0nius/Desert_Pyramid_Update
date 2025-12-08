@@ -1,0 +1,21 @@
+{
+  "parent": "block/block",
+  "elements": [
+    {
+      "from": [0, 14, 0],
+      "to": [16, 16, 16],
+      "faces": {
+        "north": {"texture": "#texture", "cullface": "north"},
+        "south": {"texture": "#texture", "cullface": "south"},
+        "east":  {"texture": "#texture", "cullface": "east"},
+        "west":  {"texture": "#texture", "cullface": "west"},
+        "up":    {"texture": "#texture"},
+        "down":  {"texture": "#texture"}
+      }
+    }
+  ],
+  "textures": {
+    "texture": "desert_pyramid_update:block/booby_trap_door",
+    "particle": "desert_pyramid_update:block/booby_trap_door"
+  }
+}

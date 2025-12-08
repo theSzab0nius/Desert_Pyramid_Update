@@ -1,16 +1,24 @@
+
+
 {
   "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "S": {
+      "item": "minecraft:string"
+    }
+  },
   "pattern": [
     "   ",
-    "S#S",
-    "S#S"
+    "#S#",
+    "#S#"
   ],
-  "key": {
-    "S": { "tag": "minecraft:sticks" },
-    "#": { "tag": "minecraft:string" }
-  },
   "result": {
-    "item": "desert_pyramid_update:booby_trap_door",
-    "count": 3
+    "count": 3,
+    "id": "desert_pyramid_update:booby_trap_door"
+
   }
 }

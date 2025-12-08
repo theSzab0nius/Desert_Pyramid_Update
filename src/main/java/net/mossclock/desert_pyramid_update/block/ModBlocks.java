@@ -5,6 +5,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.mossclock.desert_pyramid_update.Desert_pyramid_update;
 
@@ -14,7 +15,7 @@ public class ModBlocks {
             new layered_sand(Block.Settings.copy(Blocks.SAND)));
 
     public static final Block BOOBY_TRAP_DOOR = registerBlock("booby_trap_door",
-            new TrapdoorBlock(BlockSetType.ACACIA, AbstractBlock.Settings.create().strength(2f).requiresTool().nonOpaque()));
+            new booby_trap_door(AbstractBlock.Settings.create().strength(0f).sounds(BlockSoundGroup.SCAFFOLDING).nonOpaque()));
 
     public static final BlockItem BOOBY_TRAP_DOOR_ITEM = Registry.register(
             Registries.ITEM,
