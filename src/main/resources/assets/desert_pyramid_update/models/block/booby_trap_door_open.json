@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_trapdoor_open",
+  "textures": {
+    "texture": "desert_pyramid_update:block/booby_trap_door"
+  }
+}
