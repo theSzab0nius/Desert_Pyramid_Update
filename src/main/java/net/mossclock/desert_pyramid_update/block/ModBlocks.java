@@ -20,11 +20,20 @@ public class ModBlocks {
     public static final Block BURIAL_URN = registerBlock("burial_urn",
             new burial_urn(AbstractBlock.Settings.create().strength(0f).sounds(BlockSoundGroup.DECORATED_POT).nonOpaque()));
 
+    public static final Block STRING_HOOK = registerBlock("string_hook",
+            new burial_urn(AbstractBlock.Settings.create().strength(0f).sounds(BlockSoundGroup.WOOD).nonOpaque()));
+
 
     public static final BlockItem BOOBY_TRAP_DOOR_ITEM = Registry.register(
             Registries.ITEM,
             Identifier.of(Desert_pyramid_update.MOD_ID, "booby_trap_door"),
             new BlockItem(BOOBY_TRAP_DOOR, new Item.Settings())
+    );
+
+    public static final BlockItem STRING_HOOK_ITEM = Registry.register(
+            Registries.ITEM,
+            Identifier.of(Desert_pyramid_update.MOD_ID, "string_hook"),
+            new BlockItem(STRING_HOOK, new Item.Settings())
     );
 
     // This creates the item version (for inventory, creative tab, etc.)

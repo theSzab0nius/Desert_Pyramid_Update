@@ -108,6 +108,7 @@ public class booby_trap_door extends Block {
             boolean powered = world.isReceivingRedstonePower(pos);
             if (powered) {
                 // Break the block immediately (drops loot)
+                triggerNeighB = true;
                 world.breakBlock(pos, true);
                 // Optional sound
                 world.playSound(null, pos, SoundEvents.BLOCK_SCAFFOLDING_BREAK,

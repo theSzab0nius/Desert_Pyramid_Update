@@ -173,5 +173,8 @@ public class ModItems {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register(entries -> {
             entries.add(ModBlocks.BURIAL_URN_ITEM);
         });
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register(entries -> {
+            entries.add(ModBlocks.STRING_HOOK_ITEM);
+        });
     }
 }
