@@ -27,6 +27,19 @@ import net.minecraft.util.ActionResult;
 
 public class burial_urn extends BlockWithEntity implements BlockEntityProvider {
 
+    @Override
+    public boolean hasComparatorOutput(BlockState state) {
+        return true; // tells MC that comparators can read this block
+    }
+
+    @Override
+    public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
+        BlockEntity be = world.getBlockEntity(pos);
+        if (be instanceof burial_urn_block_entity urn) {
+            return urn.getRarityPower();
+        }
+        return 0;
+    }
 
     public static final MapCodec<burial_urn> CODEC = burial_urn.createCodec(burial_urn::new);
 
@@ -129,6 +142,7 @@ public class burial_urn extends BlockWithEntity implements BlockEntityProvider {
                     urn.setStack(i, toInsert);
                     world.playSound(null, pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS, 0.6f, 1.8f);
                     urn.markDirty();
+                    world.updateComparators(pos, this);
                     return ItemActionResult.SUCCESS;
                 }
             }

@@ -1,12 +1,20 @@
 package net.mossclock.desert_pyramid_update.block;
 
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
+import net.minecraft.component.type.ItemEnchantmentsComponent;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -14,6 +22,8 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.util.math.Direction;
+
+import java.util.List;
 
 
 public class booby_trap_door extends Block {
@@ -63,18 +73,30 @@ public class booby_trap_door extends Block {
             }
         }
     }
+
+    public boolean triggerNeighB = false;
     // When the block is broken
     @Override
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
-        if (!world.isClient && !state.isOf(newState.getBlock())) {
-            // Drop 4 sticks
-            dropStack(world, pos, new ItemStack(Items.STICK, 4));
-            // Drop 2 strings
-            dropStack(world, pos, new ItemStack(Items.STRING, 2));
+        if (triggerNeighB) {
             breakConnected(world, pos, 1);
-            // TODO: Trigger your trap here
+            triggerNeighB = false;  // Reset for next break
         }
         super.onStateReplaced(state, world, pos, newState, moved);
+    }
+
+    @Override
+    public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+
+        // Check if player is NOT crouching
+        if (player != null && !player.isSneaking()) {
+            // Trigger the trap: break the block
+           triggerNeighB = true;
+            world.playSound(null, pos, SoundEvents.BLOCK_SCAFFOLDING_BREAK,
+                    SoundCategory.BLOCKS, 1.0F, 1.0F);
+        }
+
+        return super.onBreak(world, pos, state, player);
     }
 
     @Override
