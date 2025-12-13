@@ -1,5 +1,6 @@
 {
   "variants": {
-    "": { "model": "desert_pyramid_update:block/burial_urn" }
+    "waterlogged=false": { "model": "desert_pyramid_update:block/burial_urn" },
+    "waterlogged=true": { "model": "desert_pyramid_update:block/burial_urn" }
   }
 }

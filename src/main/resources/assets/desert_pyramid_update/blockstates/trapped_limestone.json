@@ -1,0 +1,45 @@
+{
+  "variants": {
+    "facing=up,mode=fire":    { "model": "desert_pyramid_update:block/trapped_limestone_fire" },
+    "facing=up,mode=ice":     { "model": "desert_pyramid_update:block/trapped_limestone_ice" },
+    "facing=up,mode=chain":   { "model": "desert_pyramid_update:block/trapped_limestone_chain" },
+    "facing=up,mode=directional": { "model": "desert_pyramid_update:block/trapped_limestone_directional" },
+    "facing=up,mode=single":  { "model": "desert_pyramid_update:block/trapped_limestone_single" },
+    "facing=up,mode=safe":    { "model": "desert_pyramid_update:block/trapped_limestone_safe" },
+
+    "facing=down,mode=fire":    { "model": "desert_pyramid_update:block/trapped_limestone_fire", "x": 180 },
+    "facing=down,mode=ice":     { "model": "desert_pyramid_update:block/trapped_limestone_ice", "x": 180 },
+    "facing=down,mode=chain":   { "model": "desert_pyramid_update:block/trapped_limestone_chain", "x": 180 },
+    "facing=down,mode=directional": { "model": "desert_pyramid_update:block/trapped_limestone_directional", "x": 180 },
+    "facing=down,mode=single":  { "model": "desert_pyramid_update:block/trapped_limestone_single", "x": 180 },
+    "facing=down,mode=safe":    { "model": "desert_pyramid_update:block/trapped_limestone_safe", "x": 180 },
+
+    "facing=north,mode=fire":   { "model": "desert_pyramid_update:block/trapped_limestone_fire", "x": 90 },
+    "facing=north,mode=ice":    { "model": "desert_pyramid_update:block/trapped_limestone_ice", "x": 90 },
+    "facing=north,mode=chain":  { "model": "desert_pyramid_update:block/trapped_limestone_chain", "x": 90 },
+    "facing=north,mode=directional": { "model": "desert_pyramid_update:block/trapped_limestone_directional", "x": 90 },
+    "facing=north,mode=single": { "model": "desert_pyramid_update:block/trapped_limestone_single", "x": 90 },
+    "facing=north,mode=safe":   { "model": "desert_pyramid_update:block/trapped_limestone_safe", "x": 90 },
+
+    "facing=south,mode=fire":   { "model": "desert_pyramid_update:block/trapped_limestone_fire", "x": 90, "y": 180 },
+    "facing=south,mode=ice":    { "model": "desert_pyramid_update:block/trapped_limestone_ice", "x": 90, "y": 180 },
+    "facing=south,mode=chain":  { "model": "desert_pyramid_update:block/trapped_limestone_chain", "x": 90, "y": 180 },
+    "facing=south,mode=directional": { "model": "desert_pyramid_update:block/trapped_limestone_directional", "x": 90, "y": 180 },
+    "facing=south,mode=single": { "model": "desert_pyramid_update:block/trapped_limestone_single", "x": 90, "y": 180 },
+    "facing=south,mode=safe":   { "model": "desert_pyramid_update:block/trapped_limestone_safe", "x": 90, "y": 180 },
+
+    "facing=west,mode=fire":    { "model": "desert_pyramid_update:block/trapped_limestone_fire", "x": 90, "y": 270 },
+    "facing=west,mode=ice":     { "model": "desert_pyramid_update:block/trapped_limestone_ice", "x": 90, "y": 270 },
+    "facing=west,mode=chain":   { "model": "desert_pyramid_update:block/trapped_limestone_chain", "x": 90, "y": 270 },
+    "facing=west,mode=directional": { "model": "desert_pyramid_update:block/trapped_limestone_directional", "x": 90, "y": 270 },
+    "facing=west,mode=single":  { "model": "desert_pyramid_update:block/trapped_limestone_single", "x": 90, "y": 270 },
+    "facing=west,mode=safe":    { "model": "desert_pyramid_update:block/trapped_limestone_safe", "x": 90, "y": 270 },
+
+    "facing=east,mode=fire":    { "model": "desert_pyramid_update:block/trapped_limestone_fire", "x": 90, "y": 90 },
+    "facing=east,mode=ice":     { "model": "desert_pyramid_update:block/trapped_limestone_ice", "x": 90, "y": 90 },
+    "facing=east,mode=chain":   { "model": "desert_pyramid_update:block/trapped_limestone_chain", "x": 90, "y": 90 },
+    "facing=east,mode=directional": { "model": "desert_pyramid_update:block/trapped_limestone_directional", "x": 90, "y": 90 },
+    "facing=east,mode=single":  { "model": "desert_pyramid_update:block/trapped_limestone_single", "x": 90, "y": 90 },
+    "facing=east,mode=safe":    { "model": "desert_pyramid_update:block/trapped_limestone_safe", "x": 90, "y": 90 }
+  }
+}

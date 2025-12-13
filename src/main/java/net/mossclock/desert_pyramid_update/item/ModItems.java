@@ -176,5 +176,8 @@ public class ModItems {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register(entries -> {
             entries.add(ModBlocks.STRING_HOOK_ITEM);
         });
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register(entries -> {
+            entries.add(ModBlocks.TRAPPED_LIMESTONE_ITEM);
+        });
     }
 }

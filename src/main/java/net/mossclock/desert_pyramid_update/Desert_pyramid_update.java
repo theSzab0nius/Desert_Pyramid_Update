@@ -1,8 +1,10 @@
 package net.mossclock.desert_pyramid_update;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.item.v1.EnchantmentEvents;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -11,6 +13,7 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.mossclock.desert_pyramid_update.block.ModBlocks;
 import net.mossclock.desert_pyramid_update.block.entity.ModBlockEntities;
+import net.mossclock.desert_pyramid_update.effect.ModEffects;
 import net.mossclock.desert_pyramid_update.enchantment.ModEnchantmentEffects;
 import net.mossclock.desert_pyramid_update.item.IronAlloyKhopeshItem;
 import net.mossclock.desert_pyramid_update.item.ModItems;
@@ -34,8 +37,13 @@ public class Desert_pyramid_update implements ModInitializer {
         ModBlocks.registerModBlocks();
         ModItems.registerModItems();
         ModBlockEntities.registerAll();
+        ModEffects.registerEffects();
 
-
+        Registry.register(
+                Registries.SOUND_EVENT,
+                Identifier.of("desert_pyramid_update", "block.trapped_limestone.cycle"),
+                ModSounds.TRAPPED_LIMESTONE_CYCLE
+        );
 	}
 
 

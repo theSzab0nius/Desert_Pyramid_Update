@@ -22,7 +22,7 @@
 			"net.mossclock.desert_pyramid_update.Desert_pyramid_updateDataGenerator"
 		],
       "client": [
-        "net.mossclock.desert_pyramid_update.Desert_pyramid_client"
+        "net.mossclock.desert_pyramid_update.client.DesertPyramidUpdateClient"
       ]
 	},
 	"mixins": [

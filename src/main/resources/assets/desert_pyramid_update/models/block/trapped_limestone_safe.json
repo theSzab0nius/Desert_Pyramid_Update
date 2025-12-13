@@ -1,0 +1,13 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "desert_pyramid_update:block/trapped_limestone_side",
+
+    "north": "desert_pyramid_update:block/trapped_limestone_side",
+    "south": "desert_pyramid_update:block/trapped_limestone_side",
+    "east":  "desert_pyramid_update:block/trapped_limestone_side",
+    "west":  "desert_pyramid_update:block/trapped_limestone_side",
+    "up":    "desert_pyramid_update:block/trapped_limestone_safe",
+    "down":  "desert_pyramid_update:block/trapped_limestone_bottom"
+  }
+}

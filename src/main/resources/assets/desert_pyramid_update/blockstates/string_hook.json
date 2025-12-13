@@ -1,0 +1,9 @@
+{
+  "variants": {
+    "facing=north": { "model": "desert_pyramid_update:block/string_hook_attached_flat_bend", "y": 0 },
+    "facing=east":  { "model": "desert_pyramid_update:block/string_hook_attached_flat_bend", "y": 90 },
+    "facing=south": { "model": "desert_pyramid_update:block/string_hook_attached_flat_bend", "y": 180 },
+    "facing=west":  { "model": "desert_pyramid_update:block/string_hook_attached_flat_bend", "y": 270 }
+
+  }
+}

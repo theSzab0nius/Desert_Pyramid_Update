@@ -1,0 +1,7 @@
+{
+  "block.trapped_limestone.cycle": {
+    "sounds": [
+      "desert_pyramid_update:block/trapped_limestone/cycle"
+    ]
+  }
+}

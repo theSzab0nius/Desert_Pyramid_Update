@@ -8,9 +8,15 @@ import net.minecraft.block.entity.DecoratedPotBlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.FluidState;
+import net.minecraft.fluid.Fluids;
+import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemActionResult;
 import net.minecraft.util.ItemScatterer;
@@ -20,12 +26,13 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import net.mossclock.desert_pyramid_update.block.entity.burial_urn_block_entity;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.util.ActionResult;
 
-public class burial_urn extends BlockWithEntity implements BlockEntityProvider {
+public class burial_urn extends BlockWithEntity implements BlockEntityProvider,Waterloggable {
 
     @Override
     public boolean hasComparatorOutput(BlockState state) {
@@ -86,7 +93,8 @@ public class burial_urn extends BlockWithEntity implements BlockEntityProvider {
         BlockState belowState = world.getBlockState(below);
 
         // Only survives on full solid blocks (no slabs, stairs, glass, etc.)
-        return Block.isFaceFullSquare(belowState.getSidesShape(world, below), Direction.UP);
+        return Block.isFaceFullSquare(belowState.getSidesShape(world, below), Direction.UP)
+                || belowState.isOf(Blocks.HOPPER);
     }
 
     @Override
@@ -153,5 +161,31 @@ public class burial_urn extends BlockWithEntity implements BlockEntityProvider {
 
 
         return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+    }
+
+    // ========== WATERLOGGING ==========
+    public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
+
+    @Override
+    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+        builder.add(WATERLOGGED);
+    }
+
+    @Override
+    public FluidState getFluidState(BlockState state) {
+        return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
+    }
+
+    @Override
+    public BlockState getPlacementState(ItemPlacementContext ctx) {
+        return super.getPlacementState(ctx).with(WATERLOGGED, ctx.getWorld().getFluidState(ctx.getBlockPos()).getFluid() == Fluids.WATER);
+    }
+
+    @Override
+    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
+        if (state.get(WATERLOGGED)) {
+            world.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+        }
+        return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
     }
 }

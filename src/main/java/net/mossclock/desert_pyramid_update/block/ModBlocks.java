@@ -21,8 +21,17 @@ public class ModBlocks {
             new burial_urn(AbstractBlock.Settings.create().strength(0f).sounds(BlockSoundGroup.DECORATED_POT).nonOpaque()));
 
     public static final Block STRING_HOOK = registerBlock("string_hook",
-            new burial_urn(AbstractBlock.Settings.create().strength(0f).sounds(BlockSoundGroup.WOOD).nonOpaque()));
+            new string_hook(AbstractBlock.Settings.create().strength(0f).sounds(BlockSoundGroup.WOOD).nonOpaque()));
 
+    static final Block TRAPPED_LIMESTONE = registerBlock("trapped_limestone",
+            new trapped_limestone(AbstractBlock.Settings.create().strength(1f).sounds(BlockSoundGroup.STONE).nonOpaque()));
+
+
+    public static final BlockItem TRAPPED_LIMESTONE_ITEM = Registry.register(
+            Registries.ITEM,
+            Identifier.of(Desert_pyramid_update.MOD_ID, "trapped_limestone"),
+            new BlockItem(TRAPPED_LIMESTONE, new Item.Settings())
+    );
 
     public static final BlockItem BOOBY_TRAP_DOOR_ITEM = Registry.register(
             Registries.ITEM,
