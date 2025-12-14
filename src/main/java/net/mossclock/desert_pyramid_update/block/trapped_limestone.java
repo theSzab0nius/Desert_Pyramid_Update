@@ -93,11 +93,9 @@ public class trapped_limestone extends Block {
             PlayerEntity player,
             BlockHitResult hit
     ) {
-        if (!state.get(WAXED)) {
+        if (!state.get(WAXED) && (player.getMainHandStack().isOf(Items.HONEYCOMB) || player.getOffHandStack().isOf(Items.HONEYCOMB))) {
             ItemStack mainHand = player.getMainHandStack();
             ItemStack offHand = player.getOffHandStack();
-
-            if (mainHand.isOf(Items.HONEYCOMB) || offHand.isOf(Items.HONEYCOMB)) {
                 if (!world.isClient) {
                     // Set to waxed
                     world.setBlockState(pos, state.with(WAXED, true), Block.NOTIFY_ALL);
@@ -123,7 +121,7 @@ public class trapped_limestone extends Block {
                     );
                 }
                 return ActionResult.success(world.isClient);
-            }
+
         }
 
         if (!state.get(WAXED) && player.isSneaking()) {
@@ -146,9 +144,12 @@ public class trapped_limestone extends Block {
                         1.0f,
                         0.8f + world.random.nextFloat() * 0.2f
                 );
+
+                player.swingHand(player.getActiveHand());
+                return ActionResult.SUCCESS;
             }
         }
-        return ActionResult.SUCCESS;
+        return ActionResult.PASS;
     }
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -183,6 +184,17 @@ public class trapped_limestone extends Block {
                 else if (source instanceof TargetBlock) {
                     // Target blocks emit a short pulse when hit — neighborUpdate fires
                     // So just trigger on any update from it (vanilla-like behavior)
+
+                    // Play pressure plate sound
+                    world.playSound(
+                            null,               // null = all players hear it
+                            pos,                // sound position
+                            SoundEvents.BLOCK_STONE_PRESSURE_PLATE_CLICK_ON, // the sound
+                            SoundCategory.BLOCKS,
+                            0.7f,               // volume
+                            1.0f                // pitch
+                    );
+
                     handleWaxedTrigger(state, (ServerWorld) world, pos);
                 }
             }
@@ -208,6 +220,17 @@ public class trapped_limestone extends Block {
         if (!state.get(WAXED)) return;
 
         if (shouldTriggerFromEntity(entity) && isUnsupported(world, pos)) {
+
+            // Play pressure plate sound
+            world.playSound(
+                    null,               // null = all players hear it
+                    pos,                // sound position
+                    SoundEvents.BLOCK_STONE_PRESSURE_PLATE_CLICK_ON, // the sound
+                    SoundCategory.BLOCKS,
+                    0.7f,               // volume
+                    1.0f                // pitch
+            );
+
             handleWaxedTrigger(state, (ServerWorld) world, pos);
         }
     }
@@ -420,41 +443,75 @@ public class trapped_limestone extends Block {
 
     private void chainTriggered(BlockState state, World world, BlockPos pos) {
         if (world.isClient) return;
+
         ServerWorld serverWorld = (ServerWorld) world;
 
-        // 1. First, do the normal SINGLE collapse on THIS block (cracks if crouching)
-        singleTriggered(state, serverWorld, pos);
+        // Get entities on top
+        List<Entity> entities = serverWorld.getOtherEntities(null,
+                new Box(pos.getX(), pos.getY() + 0.5, pos.getZ(), pos.getX() + 1, pos.getY() + 1.5, pos.getZ() + 1));
 
-        // 2. Schedule neighbor check AFTER this block breaks (so it becomes unsupported)
-        serverWorld.scheduleBlockTick(pos, this, 1); // 1 tick delay
+        boolean hasCrouchingPlayer = false;
+
+        for (Entity entity : entities) {
+            if (entity instanceof ServerPlayerEntity player && player.isSneaking()) {
+                hasCrouchingPlayer = true;
+                break;
+            }
+        }
+
+        if (!hasCrouchingPlayer) {
+            // Instant break — no mercy
+            serverWorld.breakBlock(pos, false);
+        }
+
+        // Crouching player → dramatic delayed break with cracks
+        final int delayTicks = 10; // ~0.5 seconds
+        final int fakeEntityId = pos.hashCode(); // Unique per block
+
+        // Show progressive cracks
+        for (int stage = 0; stage <= 9; stage++) {
+            final int currentStage = stage;
+            serverWorld.getServer().execute(() -> {
+                sendBreakProgress(serverWorld, pos, fakeEntityId, currentStage);
+            });
+            // Optional: add small delay between stages if you want slower cracks
+        }
+
+        // Final break after delay
+        serverWorld.scheduleBlockTick(pos, this, delayTicks);
+        // Break connected trapped limestone blocks
+        breakConnected(serverWorld, pos, 0);
     }
 
-    private void spreadChainReaction(ServerWorld world, BlockPos brokenPos) {
-        // Check all 6 directions
-        for (Direction direction : Direction.values()) {
-            BlockPos neighborPos = brokenPos.offset(direction);
+    private void breakConnected(World world, BlockPos pos, int depth) {
+        if (depth > 12) return; // safe recursion limit
+
+        for (Direction dir : Direction.values()) {
+            BlockPos neighborPos = pos.offset(dir);
             BlockState neighborState = world.getBlockState(neighborPos);
 
-            // Must be: our trapped_limestone + waxed + unsupported (air below)
             if (neighborState.getBlock() == this &&
                     neighborState.get(WAXED) &&
                     world.getBlockState(neighborPos.down()).isAir()) {
 
-                // Trigger its SINGLE collapse logic (cracks if someone crouching on it)
-                singleTriggered(neighborState, world, neighborPos);
-
-                // Small delay so the wave spreads naturally (not instant flood)
-                java.util.Random random = null;
-                world.scheduleBlockTick(neighborPos, this, 2 + random.nextInt(3)); // 2-4 tick stagger
+                ServerWorld serverWorld = (ServerWorld) world;
+                // Schedule the neighbor to break in 10 ticks
+                serverWorld.scheduleBlockTick(neighborPos, this, 2);
             }
         }
     }
 
+    // Then, in your scheduledTick:
+    @Override
+    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+        singleTriggered(state, world, pos); // break the block
+        breakConnected(world, pos, 1);      // continue the chain
+    }
+
+
     private void directionalTriggered(BlockState state, World world, BlockPos pos) {
 
     }
-
-    
 
     private void singleTriggered(BlockState state, World world, BlockPos pos) {
         if (world.isClient) return;
@@ -495,14 +552,6 @@ public class trapped_limestone extends Block {
 
         // Final break after delay
         serverWorld.scheduleBlockTick(pos, this, delayTicks);
-    }
-
-    // Called when the scheduled tick runs
-    @Override
-    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        final int fakeEntityId = pos.hashCode();
-        sendBreakProgress(world, pos, fakeEntityId, -1); // Remove cracks
-        world.breakBlock(pos, false);
     }
 
     private void sendBreakProgress(ServerWorld world, BlockPos pos, int entityId, int stage) {
