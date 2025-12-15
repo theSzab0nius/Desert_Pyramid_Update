@@ -52,16 +52,24 @@ public class trapped_limestone extends Block {
 
     public static final BooleanProperty WAXED = BooleanProperty.of("waxed");
     public static final DirectionProperty FACING = Properties.FACING;
+    public static final DirectionProperty ROTATION = DirectionProperty.of("rotation", Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST);
     public static final EnumProperty<TrappedLimestoneMode> MODE = EnumProperty.of("mode", TrappedLimestoneMode.class);
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(FACING, MODE, WAXED);
+        builder.add(FACING, ROTATION, MODE, WAXED);
     }
 
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return this.getDefaultState().with(FACING, ctx.getSide());
+        Direction triggerDir = ctx.getSide(); // This controls where effects go
+        Direction playerHorizontal = ctx.getHorizontalPlayerFacing();
+
+        return this.getDefaultState()
+                .with(FACING, triggerDir)
+                .with(ROTATION, playerHorizontal)
+                .with(MODE, TrappedLimestoneMode.FIRE)
+                .with(WAXED, false);
     }
 
     @Override
@@ -254,9 +262,28 @@ public class trapped_limestone extends Block {
         // Always break the block for chain mode, ignoring mode of neighbor
         if (state.get(MODE) == TrappedLimestoneMode.SINGLE) {
             finalizeSingle(world, pos);
-        } else {
+        } else if (state.get(MODE) == TrappedLimestoneMode.DIRECTIONAL){
+            finalizeDirectional(world, pos);
+        }
+        else {
             finalizeChain(world, pos);
         }
+    }
+
+
+    private void finalizeDirectional(ServerWorld world, BlockPos pos) {
+        BlockState state = world.getBlockState(pos);
+        sendBreakProgress(world, pos, pos.hashCode(), -1);
+        world.breakBlock(pos, false);
+
+        Direction propagation = state.get(ROTATION);
+        Direction facing = state.get(FACING);
+
+        if (facing == Direction.DOWN) {
+            propagation = propagation.getOpposite();
+        }
+        // Schedule next block propagation
+        breakDirectionalConnected(world, pos, propagation, 1);
     }
 
     private void finalizeSingle(ServerWorld world, BlockPos pos) {
@@ -270,6 +297,25 @@ public class trapped_limestone extends Block {
         breakConnected(world, pos, 1);
     }
 
+    private void breakDirectionalConnected(ServerWorld world, BlockPos pos, Direction propagation, int depth) {
+        if (depth > 12) return;
+
+        BlockPos nextPos = pos.offset(propagation);
+        BlockState nextState = world.getBlockState(nextPos);
+
+        if (nextState.getBlock() instanceof trapped_limestone
+                && nextState.get(WAXED)
+                && world.getBlockState(nextPos.down()).isAir()) {
+
+            if (nextState.get(MODE) == TrappedLimestoneMode.DIRECTIONAL) {
+                world.scheduleBlockTick(nextPos, this, 2);
+            } else {
+                // Non-directional block: just break itself
+                tryTrigger(nextState, world, nextPos);
+            }
+        }
+    }
+
     private void finalizeBreak(ServerWorld world, BlockPos pos) {
         sendBreakProgress(world, pos, pos.hashCode(), -1);
         world.breakBlock(pos, false);
@@ -281,6 +327,57 @@ public class trapped_limestone extends Block {
         world.getPlayers().forEach(p -> p.networkHandler.sendPacket(packet));
     }
 
-    private void directionalTriggered(World world, BlockPos pos) {}
+    private void directionalTriggered(ServerWorld world, BlockPos pos) {
+        BlockState state = world.getBlockState(pos);
+        directionalBreak(world, pos, state.get(FACING));
+    }
+
+
+    private void directionalBreak(ServerWorld world, BlockPos pos, Direction facing) {
+        BlockState state = world.getBlockState(pos);
+        if (!(state.getBlock() instanceof trapped_limestone)) return;
+
+        // Only trigger if facing UP or DOWN
+        if (facing != Direction.UP && facing != Direction.DOWN) return;
+
+        // Use ROTATION for propagation
+        Direction propagation = state.get(ROTATION);
+        if (facing == Direction.DOWN && (propagation == Direction.NORTH || propagation == Direction.SOUTH)) {
+            propagation = propagation.getOpposite();
+        }
+
+        boolean crouching = world.getOtherEntities(null,
+                        new Box(pos.getX(), pos.getY() + 0.5, pos.getZ(),
+                                pos.getX() + 1, pos.getY() + 1.5, pos.getZ() + 1))
+                .stream().anyMatch(e -> e instanceof ServerPlayerEntity player && player.isSneaking());
+
+        int fakeId = pos.hashCode();
+
+        if (!crouching) {
+            sendBreakProgress(world, pos, fakeId, -1);
+            world.breakBlock(pos, false);
+
+            // Propagate along rotation direction
+            BlockPos nextPos = pos.offset(propagation);
+            BlockState nextState = world.getBlockState(nextPos);
+            if (nextState.getBlock() instanceof trapped_limestone
+                    && nextState.get(WAXED)
+                    && world.getBlockState(nextPos.down()).isAir()) {
+                world.scheduleBlockTick(nextPos, this, 2);
+            }
+            return;
+        }
+
+        // If crouching, show crack animation
+        for (int stage = 0; stage <= 9; stage++) {
+            final int currentStage = stage;
+            world.getServer().execute(() -> sendBreakProgress(world, pos, fakeId, currentStage));
+        }
+
+        // Schedule breaking later
+        world.scheduleBlockTick(pos, this, 7);
+
+    }
+
     private void safeTriggered(World world, BlockPos pos) {}
 }
