@@ -2,11 +2,15 @@ package net.mossclock.desert_pyramid_update.block;
 
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.FluidState;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.state.StateManager;
+import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.IntProperty;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -19,7 +23,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import net.mossclock.desert_pyramid_update.item.ModItems;
 
-public class layered_sand extends Block {  // ← Class name must match file name!
+public class layered_sand extends BlockWithEntity {  // ← Class name must match file name!
     public static final IntProperty LAYERS = IntProperty.of("layers", 1, 8);
 
     protected static final VoxelShape[] SHAPES = new VoxelShape[]{
@@ -34,14 +38,18 @@ public class layered_sand extends Block {  // ← Class name must match file nam
             Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 16.0, 16.0)
     };
 
+    public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
+
     public layered_sand(Settings settings) {
         super(settings);
-        this.setDefaultState(this.stateManager.getDefaultState().with(LAYERS, 1));
+        this.setDefaultState(this.stateManager.getDefaultState()
+                .with(LAYERS, 1)
+                .with(WATERLOGGED, false));
     }
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(LAYERS);
+        builder.add(LAYERS, WATERLOGGED);
     }
 
     @Override
@@ -58,11 +66,25 @@ public class layered_sand extends Block {  // ← Class name must match file nam
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         BlockState stateAtPos = ctx.getWorld().getBlockState(ctx.getBlockPos());
+        BlockState placedState;
+
         if (stateAtPos.isOf(this)) {
             int layers = stateAtPos.get(LAYERS);
-            return layers < 8 ? stateAtPos.with(LAYERS, layers + 1) : this.getDefaultState();
+            placedState =  layers < 8 ? stateAtPos.with(LAYERS, layers + 1) : this.getDefaultState();
+        } else {
+            // Placing on empty spot → start with 1 layer
+            placedState = this.getDefaultState().with(LAYERS, 1);
         }
-        return this.getDefaultState();
+        FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
+        if (fluidState.getFluid() == Fluids.WATER && fluidState.isStill()) {
+            return placedState.with(WATERLOGGED, true);
+        }
+        return placedState.with(WATERLOGGED, false);
+    }
+
+    @Override
+    public FluidState getFluidState(BlockState state) {
+        return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
     }
 
     @Override

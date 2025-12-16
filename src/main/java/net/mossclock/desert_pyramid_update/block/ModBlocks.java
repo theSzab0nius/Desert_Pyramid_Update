@@ -12,10 +12,22 @@ import net.mossclock.desert_pyramid_update.Desert_pyramid_update;
 public class ModBlocks {
 
     public static final Block LAYERED_SAND = registerBlock("layered_sand",
-            new layered_sand(Block.Settings.copy(Blocks.SAND)));
+            new layered_sand(Block.Settings.copy(Blocks.SAND)
+                    .strength(0.5f)                          // same as vanilla sand
+                    .sounds(BlockSoundGroup.SAND)
+                    .nonOpaque()                             // keeps your existing visuals
+                    .mapColor(MapColor.SAND)                 // base color for tinting (yellowish)
+                    .waterloggable())
+    );
 
     public static final Block RED_LAYERED_SAND = registerBlock("red_layered_sand",
-            new red_layered_sand(Block.Settings.copy(Blocks.RED_SAND)));
+            new red_layered_sand(Block.Settings.copy(Blocks.RED_SAND)
+                    .strength(0.5f)
+                    .sounds(BlockSoundGroup.SAND)            // red sand uses same sound as regular
+                    .nonOpaque()
+                    .mapColor(MapColor.RED_SAND)             // reddish base for wet/dry tint
+                    .waterloggable())
+    );
 
     public static final Block BOOBY_TRAP_DOOR = registerBlock("booby_trap_door",
             new booby_trap_door(AbstractBlock.Settings.create().strength(0f).sounds(BlockSoundGroup.SCAFFOLDING).nonOpaque()));
