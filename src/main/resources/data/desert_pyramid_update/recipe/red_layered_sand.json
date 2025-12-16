@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "minecraft:red_sand"
+    }
+  },
+  "pattern": [
+    "   ",
+    "   ",
+    "###"
+  ],
+  "result": {
+    "count": 6,
+    "id": "desert_pyramid_update:red_layered_sand"
+
+  }
+}

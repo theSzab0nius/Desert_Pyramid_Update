@@ -5,9 +5,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.network.packet.s2c.play.BlockBreakingProgressS2CPacket;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.particle.SimpleParticleType;
@@ -25,6 +23,7 @@ import net.minecraft.util.StringIdentifiable;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.mossclock.desert_pyramid_update.ModSounds;
 
@@ -59,6 +58,7 @@ public class trapped_limestone extends Block {
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(FACING, ROTATION, MODE, WAXED);
     }
+
 
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {

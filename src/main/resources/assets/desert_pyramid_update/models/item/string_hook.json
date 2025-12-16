@@ -1,6 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "desert_pyramid_update:block/string_hook_item"
-  }
-}

@@ -14,18 +14,21 @@ public class ModBlocks {
     public static final Block LAYERED_SAND = registerBlock("layered_sand",
             new layered_sand(Block.Settings.copy(Blocks.SAND)));
 
+    public static final Block RED_LAYERED_SAND = registerBlock("red_layered_sand",
+            new red_layered_sand(Block.Settings.copy(Blocks.RED_SAND)));
+
     public static final Block BOOBY_TRAP_DOOR = registerBlock("booby_trap_door",
             new booby_trap_door(AbstractBlock.Settings.create().strength(0f).sounds(BlockSoundGroup.SCAFFOLDING).nonOpaque()));
 
     public static final Block BURIAL_URN = registerBlock("burial_urn",
             new burial_urn(AbstractBlock.Settings.create().strength(0f).sounds(BlockSoundGroup.DECORATED_POT).nonOpaque()));
 
-    public static final Block STRING_HOOK = registerBlock("string_hook",
-            new string_hook(AbstractBlock.Settings.create().strength(0f).sounds(BlockSoundGroup.WOOD).nonOpaque()));
-
     static final Block TRAPPED_LIMESTONE = registerBlock("trapped_limestone",
-            new trapped_limestone(AbstractBlock.Settings.create().strength(1f).sounds(BlockSoundGroup.STONE).nonOpaque()));
-
+            new trapped_limestone(AbstractBlock.Settings.create()
+                    .strength(1.5f, 6.0f)   // hardness 1.5f, resistance 6.0f — exact vanilla stone values
+                    .requiresTool()         // crucial: massive slowdown without correct tool + no drops if you want that
+                    .sounds(BlockSoundGroup.STONE)
+                    .nonOpaque()));
 
     public static final BlockItem TRAPPED_LIMESTONE_ITEM = Registry.register(
             Registries.ITEM,
@@ -39,17 +42,17 @@ public class ModBlocks {
             new BlockItem(BOOBY_TRAP_DOOR, new Item.Settings())
     );
 
-    public static final BlockItem STRING_HOOK_ITEM = Registry.register(
-            Registries.ITEM,
-            Identifier.of(Desert_pyramid_update.MOD_ID, "string_hook"),
-            new BlockItem(STRING_HOOK, new Item.Settings())
-    );
-
     // This creates the item version (for inventory, creative tab, etc.)
     public static final Item LAYERED_SAND_ITEM = Registry.register(
             Registries.ITEM,
             Identifier.of(Desert_pyramid_update.MOD_ID, "layered_sand"),
             new BlockItem(LAYERED_SAND, new Item.Settings())
+    );
+
+    public static final Item RED_LAYERED_SAND_ITEM = Registry.register(
+            Registries.ITEM,
+            Identifier.of(Desert_pyramid_update.MOD_ID, "red_layered_sand"),
+            new BlockItem(RED_LAYERED_SAND, new Item.Settings())
     );
 
     public static final Item BURIAL_URN_ITEM = Registry.register(

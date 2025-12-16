@@ -168,13 +168,13 @@ public class ModItems {
             entries.add(ModBlocks.LAYERED_SAND_ITEM);
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register(entries -> {
+            entries.add(ModBlocks.RED_LAYERED_SAND_ITEM);
+        });
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register(entries -> {
             entries.add(ModBlocks.BOOBY_TRAP_DOOR_ITEM);
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register(entries -> {
             entries.add(ModBlocks.BURIAL_URN_ITEM);
-        });
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register(entries -> {
-            entries.add(ModBlocks.STRING_HOOK_ITEM);
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register(entries -> {
             entries.add(ModBlocks.TRAPPED_LIMESTONE_ITEM);
