@@ -26,10 +26,9 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import net.mossclock.desert_pyramid_update.block.entity.ModBlockEntities;
-import net.mossclock.desert_pyramid_update.block.entity.layered_sand_block_entity;
 import net.mossclock.desert_pyramid_update.item.ModItems;
 
-public class layered_sand extends BlockWithEntity implements Waterloggable{  // ← Class name must match file name!
+public class layered_sand extends Block implements Waterloggable{  // ← Class name must match file name!
     public static final IntProperty LAYERS = IntProperty.of("layers", 1, 8);
 
     protected static final VoxelShape[] SHAPES = new VoxelShape[]{
@@ -46,16 +45,6 @@ public class layered_sand extends BlockWithEntity implements Waterloggable{  // 
 
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
     public static final MapCodec<burial_urn> CODEC = burial_urn.createCodec(burial_urn::new);
-
-    @Override
-    protected MapCodec<? extends BlockWithEntity> getCodec() {
-        return CODEC; // Or createCodec(layered_sand::new) if you prefer
-    }
-
-    @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new layered_sand_block_entity( pos, state);
-    }
 
 
     @Override
@@ -117,15 +106,6 @@ public class layered_sand extends BlockWithEntity implements Waterloggable{  // 
         return placedState.with(WATERLOGGED, shouldWaterlog);
     }
 
-    private void updateWetTint(World world, BlockPos pos, BlockState state) {
-        if (!world.isClient) {
-            BlockEntity be = world.getBlockEntity(pos);
-            if (be instanceof layered_sand_block_entity sandBE) {
-                sandBE.setWet(state.get(WATERLOGGED));
-            }
-        }
-    }
-
     @Override
     public FluidState getFluidState(BlockState state) {
         return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
@@ -156,13 +136,14 @@ public class layered_sand extends BlockWithEntity implements Waterloggable{  // 
     public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
         super.onBlockAdded(state, world, pos, oldState, notify);
         checkDrop(world, pos, state);
-        updateWetTint(world, pos, state);
     }
 
     @Override
     public void neighborUpdate(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean notify) {
         checkDrop(world, pos, state);
-        updateWetTint(world, pos, state);
+        if (state.get(WATERLOGGED)) {
+            world.setBlockState(pos, state, Block.NOTIFY_ALL); // triggers render update
+        }
     }
 
     private void checkDrop(World world, BlockPos pos, BlockState state) {

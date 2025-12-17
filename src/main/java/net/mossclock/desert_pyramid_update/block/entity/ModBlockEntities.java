@@ -10,19 +10,12 @@ import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityT
 
 public class ModBlockEntities {
     public static BlockEntityType<burial_urn_block_entity> BURIAL_URN_ENTITY_TYPE;
-    public static BlockEntityType<layered_sand_block_entity> LAYERED_SAND_ENTITY_TYPE;
 
     public static void registerAll() {
         BURIAL_URN_ENTITY_TYPE = Registry.register(
                 Registries.BLOCK_ENTITY_TYPE,
                 Identifier.of("desert_pyramid_update", "burial_urn"),
                 BlockEntityType.Builder.create(burial_urn_block_entity::new, ModBlocks.BURIAL_URN).build(null)
-        );
-
-        LAYERED_SAND_ENTITY_TYPE = Registry.register(
-                Registries.BLOCK_ENTITY_TYPE,
-                Identifier.of("desert_pyramid_update", "layered_sand"),
-                BlockEntityType.Builder.create(layered_sand_block_entity::new, ModBlocks.LAYERED_SAND).build(null)
         );
     }
 
