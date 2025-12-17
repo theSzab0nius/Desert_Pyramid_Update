@@ -1,6 +1,8 @@
 package net.mossclock.desert_pyramid_update.block;
 
 import net.minecraft.block.*;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.MapColor;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -16,8 +18,7 @@ public class ModBlocks {
                     .strength(0.5f)                          // same as vanilla sand
                     .sounds(BlockSoundGroup.SAND)
                     .nonOpaque()                             // keeps your existing visuals
-                    .mapColor(MapColor.SAND)                 // base color for tinting (yellowish)
-                    .waterloggable())
+                    .mapColor(MapColor.DIRT_BROWN)     )            // base color for tinting (yellowish)
     );
 
     public static final Block RED_LAYERED_SAND = registerBlock("red_layered_sand",
@@ -25,8 +26,7 @@ public class ModBlocks {
                     .strength(0.5f)
                     .sounds(BlockSoundGroup.SAND)            // red sand uses same sound as regular
                     .nonOpaque()
-                    .mapColor(MapColor.RED_SAND)             // reddish base for wet/dry tint
-                    .waterloggable())
+                    .mapColor(MapColor.TERRACOTTA_RED)   )          // reddish base for wet/dry tint
     );
 
     public static final Block BOOBY_TRAP_DOOR = registerBlock("booby_trap_door",

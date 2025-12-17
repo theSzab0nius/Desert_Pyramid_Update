@@ -152,6 +152,7 @@ public class trapped_limestone extends Block {
     }
 
     private void tryTrigger(BlockState state, ServerWorld world, BlockPos pos) {
+        if (!(state.getBlock() instanceof trapped_limestone)) return;
         if (!state.get(WAXED)) return;
 
         switch (state.get(MODE)) {
@@ -258,6 +259,7 @@ public class trapped_limestone extends Block {
     @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         if (!state.get(WAXED)) return;
+        if (!(state.getBlock() instanceof trapped_limestone)) return;
 
         // Always break the block for chain mode, ignoring mode of neighbor
         if (state.get(MODE) == TrappedLimestoneMode.SINGLE) {
@@ -272,6 +274,7 @@ public class trapped_limestone extends Block {
 
 
     private void finalizeDirectional(ServerWorld world, BlockPos pos) {
+
         BlockState state = world.getBlockState(pos);
         sendBreakProgress(world, pos, pos.hashCode(), -1);
         world.breakBlock(pos, false);
@@ -329,6 +332,7 @@ public class trapped_limestone extends Block {
 
     private void directionalTriggered(ServerWorld world, BlockPos pos) {
         BlockState state = world.getBlockState(pos);
+        if (!(state.getBlock() instanceof trapped_limestone)) return;
         directionalBreak(world, pos, state.get(FACING));
     }
 

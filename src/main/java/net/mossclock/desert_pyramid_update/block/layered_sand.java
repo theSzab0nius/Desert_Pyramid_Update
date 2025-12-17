@@ -1,6 +1,9 @@
 package net.mossclock.desert_pyramid_update.block;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -20,10 +23,13 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
+import net.mossclock.desert_pyramid_update.block.entity.ModBlockEntities;
+import net.mossclock.desert_pyramid_update.block.entity.layered_sand_block_entity;
 import net.mossclock.desert_pyramid_update.item.ModItems;
 
-public class layered_sand extends BlockWithEntity {  // ← Class name must match file name!
+public class layered_sand extends BlockWithEntity implements Waterloggable{  // ← Class name must match file name!
     public static final IntProperty LAYERS = IntProperty.of("layers", 1, 8);
 
     protected static final VoxelShape[] SHAPES = new VoxelShape[]{
@@ -39,12 +45,37 @@ public class layered_sand extends BlockWithEntity {  // ← Class name must matc
     };
 
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
+    public static final MapCodec<burial_urn> CODEC = burial_urn.createCodec(burial_urn::new);
+
+    @Override
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return CODEC; // Or createCodec(layered_sand::new) if you prefer
+    }
+
+    @Override
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new layered_sand_block_entity( pos, state);
+    }
+
+
+    @Override
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
+    }
 
     public layered_sand(Settings settings) {
         super(settings);
         this.setDefaultState(this.stateManager.getDefaultState()
                 .with(LAYERS, 1)
                 .with(WATERLOGGED, false));
+    }
+
+    @Override
+    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
+        if (state.get(WATERLOGGED)) {
+            world.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+        }
+        return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
     }
 
     @Override
@@ -67,19 +98,32 @@ public class layered_sand extends BlockWithEntity {  // ← Class name must matc
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         BlockState stateAtPos = ctx.getWorld().getBlockState(ctx.getBlockPos());
         BlockState placedState;
-
         if (stateAtPos.isOf(this)) {
             int layers = stateAtPos.get(LAYERS);
-            placedState =  layers < 8 ? stateAtPos.with(LAYERS, layers + 1) : this.getDefaultState();
+            placedState = layers < 8 ? stateAtPos.with(LAYERS, layers + 1) : this.getDefaultState();
         } else {
-            // Placing on empty spot → start with 1 layer
             placedState = this.getDefaultState().with(LAYERS, 1);
         }
-        FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
-        if (fluidState.getFluid() == Fluids.WATER && fluidState.isStill()) {
-            return placedState.with(WATERLOGGED, true);
+
+        FluidState fluid = ctx.getWorld().getFluidState(ctx.getBlockPos());
+        boolean shouldWaterlog = fluid.getFluid() == Fluids.WATER;
+
+        // Also check below if stacking (for flowing water cases)
+        if (!shouldWaterlog && stateAtPos.isOf(this)) {
+            FluidState belowFluid = ctx.getWorld().getFluidState(ctx.getBlockPos().down());
+            shouldWaterlog = belowFluid.getFluid() == Fluids.WATER;
         }
-        return placedState.with(WATERLOGGED, false);
+
+        return placedState.with(WATERLOGGED, shouldWaterlog);
+    }
+
+    private void updateWetTint(World world, BlockPos pos, BlockState state) {
+        if (!world.isClient) {
+            BlockEntity be = world.getBlockEntity(pos);
+            if (be instanceof layered_sand_block_entity sandBE) {
+                sandBE.setWet(state.get(WATERLOGGED));
+            }
+        }
     }
 
     @Override
@@ -110,12 +154,15 @@ public class layered_sand extends BlockWithEntity {  // ← Class name must matc
 
     @Override
     public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
+        super.onBlockAdded(state, world, pos, oldState, notify);
         checkDrop(world, pos, state);
+        updateWetTint(world, pos, state);
     }
 
     @Override
     public void neighborUpdate(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean notify) {
         checkDrop(world, pos, state);
+        updateWetTint(world, pos, state);
     }
 
     private void checkDrop(World world, BlockPos pos, BlockState state) {
