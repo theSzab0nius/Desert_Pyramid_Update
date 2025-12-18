@@ -3,41 +3,118 @@ package net.mossclock.desert_pyramid_update;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
-
-
-import java.util.UUID;
+import net.mossclock.desert_pyramid_update.effect.ModEffects;
 
 public enum Blessing {
-    KHERT_BLESSING("khert_blessing", EntityAttributes.GENERIC_ARMOR_TOUGHNESS, "khert-toughness", 4.0, EntityAttributeModifier.Operation.ADD_VALUE),
-    MNEMON_INSIGHT("mnemon_insight", EntityAttributes.GENERIC_ATTACK_SPEED, "mnemon-haste", 0.4, EntityAttributeModifier.Operation.ADD_VALUE),
-    BELLATOR_FURY("bellator_fury", EntityAttributes.GENERIC_ATTACK_DAMAGE, "bellator-strength", 1.0, EntityAttributeModifier.Operation.ADD_VALUE),
-    IXKALI_VIGOR("ixkali_vigor", EntityAttributes.GENERIC_MAX_HEALTH, "ixkali-health", 4.0, EntityAttributeModifier.Operation.ADD_VALUE),
-    AVASURA_PEACE("avasura_peace", EntityAttributes.GENERIC_ARMOR, "avasura-armor", 4.0, EntityAttributeModifier.Operation.ADD_VALUE),
-    ILLAPACHARI_SPEED("illapachari_speed", EntityAttributes.GENERIC_MOVEMENT_SPEED, "illapa-speed", 0.2, EntityAttributeModifier.Operation.ADD_VALUE),
-    HOSHIKARI_FORTUNE("hoshikari_fortune", EntityAttributes.GENERIC_LUCK, "hoshikari-luck", 2.0, EntityAttributeModifier.Operation.ADD_VALUE),
-    MOR_EZEN_GRACE("mor_ezen_grace", EntityAttributes.GENERIC_SAFE_FALL_DISTANCE, "mor-slowfall", 100.0, EntityAttributeModifier.Operation.ADD_VALUE),
-    NYASARI_VITALITY("nyasari_vitality", EntityAttributes.GENERIC_MAX_HEALTH, "nyasari-boost", 2.0, EntityAttributeModifier.Operation.ADD_VALUE);
+
+    // Egyptian – Afterlife / Protection
+    BLESSING_OF_KHERT(
+            "blessing_of_khert",
+            ModEffects.KHERT_BLESSING,
+            EntityAttributes.GENERIC_ARMOR_TOUGHNESS,
+            2.0
+    ),
+
+    // Greek – Knowledge / Wisdom
+    BLESSING_OF_MNEMON(
+            "blessing_of_mnemon",
+            ModEffects.MNEMON_INSIGHT,
+            EntityAttributes.GENERIC_ATTACK_SPEED,
+            0.15
+    ),
+
+    // Roman – War / Valor
+    BLESSING_OF_BELLATOR(
+            "blessing_of_bellator",
+            ModEffects.BELLATOR_FURY,
+            EntityAttributes.GENERIC_ATTACK_DAMAGE,
+            1.0
+    ),
+
+    // Mesoamerican – Sun / Life
+    BLESSING_OF_IXKALI(
+            "blessing_of_ixkali",
+            ModEffects.IXKALI_VIGOR,
+            EntityAttributes.GENERIC_JUMP_STRENGTH,
+            0.08
+            ),
+    // South / East Asian – Protection / Enlightenment
+    BLESSING_OF_AVASURA(
+            "blessing_of_avasura",
+            ModEffects.AVASURA_PEACE,
+            EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE,
+            0.2
+    ),
+
+    // Incan – Storms / Mountains
+    BLESSING_OF_ILLAPACHARI(
+            "blessing_of_illapachari",
+            ModEffects.ILLAPACHARI_SPEED,
+            EntityAttributes.GENERIC_SAFE_FALL_DISTANCE,
+            0.5
+    ),
+
+    // East Asian – Prosperity / Harvest
+    BLESSING_OF_HOSHIKARI(
+            "blessing_of_hoshikari",
+            ModEffects.HOSHIKARI_FORTUNE,
+            EntityAttributes.GENERIC_LUCK,
+            1.0
+    ),
+
+    // Eurasian Steppe – Wind / Horse Spirit
+    BLESSING_OF_MOR_EZEN(
+            "blessing_of_mor_ezen",
+            ModEffects.MOR_EZEN_GRACE,
+            EntityAttributes.GENERIC_MOVEMENT_SPEED,
+            0.05
+    ),
+
+    // Sub-Saharan African – Rain / Vitality
+    BLESSING_OF_NYASARI(
+            "blessing_of_nyasari",
+            ModEffects.NYASARI_VITALITY,
+            EntityAttributes.GENERIC_MAX_HEALTH,
+            2.0
+    );
 
     public final String id;
-    public final RegistryEntry<EntityAttribute> attribute;  // Changed type!
-    public final String modifierName;
-    public final double value;
-    public final EntityAttributeModifier.Operation operation;
-    public final UUID modifierUUID;
 
-    Blessing(String id, RegistryEntry<EntityAttribute> attribute, String modifierName, double value, EntityAttributeModifier.Operation operation) {
+    // One of these will be non-null
+    public final RegistryEntry<EntityAttribute> attribute;
+    public final RegistryEntry<StatusEffect> statusEffect;
+
+    public final double value;
+
+    Blessing(
+            String id,
+            RegistryEntry<StatusEffect> statusEffect,  // changed
+            RegistryEntry<EntityAttribute> attribute,
+            double value
+    ) {
         this.id = id;
+        this.statusEffect = statusEffect;
         this.attribute = attribute;
-        this.modifierName = modifierName;
         this.value = value;
-        this.operation = operation;
-        this.modifierUUID = UUID.nameUUIDFromBytes((id + modifierName).getBytes());
+    }
+
+    public boolean isAttributeBlessing() {
+        return attribute != null;
+    }
+
+    public boolean isStatusEffectBlessing() {
+        return statusEffect != null;
     }
 
     public EntityAttributeModifier createModifier() {
-        Identifier modifierId = Identifier.of("desert_pyramid_update", this.id + "_blessing");
-        return new EntityAttributeModifier(modifierId, value, operation);
+        return new EntityAttributeModifier(
+                Identifier.of("desert_pyramid_update", id),
+                value,
+                EntityAttributeModifier.Operation.ADD_VALUE
+        );
     }
 }
