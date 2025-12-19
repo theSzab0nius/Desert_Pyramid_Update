@@ -87,7 +87,14 @@ public enum Blessing {
     ModEffects.UMBRATH_SHADE,  // Icon: swirling black void with red slit eyes
     EntityAttributes.PLAYER_SNEAKING_SPEED,
     0.15  // +50% sneak — zippy stealth
-    ),;
+    ),
+
+    BLESSING_OF_FORGATHOR(  // "Forge Hammer" vibe
+            "blessing_of_forgathor",
+            ModEffects.FORGATHOR_FORGE,
+            EntityAttributes.PLAYER_MINING_EFFICIENCY,
+            10.0
+    );
 
     public final String id;
 

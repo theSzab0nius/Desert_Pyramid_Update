@@ -1,9 +1,9 @@
 {
   "display": {
     "icon": {
-      "id": "desert_pyramid_update:khert_statue"
+      "id": "desert_pyramid_update:forgathor_statue"
     },
-    "title": { "text": "§6§lBlessing of Mnemon" },
+    "title": { "text": "§6§lBlessing of Forgathor" },
     "description": { "text": "§7Generic armour toughness §8(§e+1 toughness§8)" },
     "frame": "challenge",
     "show_toast": true,

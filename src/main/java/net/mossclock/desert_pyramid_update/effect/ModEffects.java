@@ -25,6 +25,7 @@ public class ModEffects {
     public static final StatusEffect MOR_EZEN_GRACE_RAW = new SimpleStatusEffect(StatusEffectCategory.BENEFICIAL, 0x87CEEB);
     public static final StatusEffect NYASARI_VITALITY_RAW = new SimpleStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00FF00);
     public static final StatusEffect UMBRATH_SHADE_RAW = new SimpleStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00FF00);
+    public static final StatusEffect FORGATHOR_FORGE_RAW = new SimpleStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00FF00);
 
     // These are the RegistryEntry versions you will use in the Blessing enum
     public static final RegistryEntry<StatusEffect> KHERT_BLESSING;
@@ -37,6 +38,7 @@ public class ModEffects {
     public static final RegistryEntry<StatusEffect> MOR_EZEN_GRACE;
     public static final RegistryEntry<StatusEffect> NYASARI_VITALITY;
     public static final RegistryEntry<StatusEffect> UMBRATH_SHADE;
+    public static final RegistryEntry<StatusEffect> FORGATHOR_FORGE;
 
     static {
         // Actually register them and get the RegistryEntry references
@@ -69,6 +71,9 @@ public class ModEffects {
 
         UMBRATH_SHADE = Registry.registerReference(Registries.STATUS_EFFECT,
                     Identifier.of("desert_pyramid_update", "umbrath_shade"), UMBRATH_SHADE_RAW);
+
+        FORGATHOR_FORGE = Registry.registerReference(Registries.STATUS_EFFECT,
+                    Identifier.of("desert_pyramid_update", "forgathor_forge"), FORGATHOR_FORGE_RAW);
         }
 
     public static void registerEffects() {
