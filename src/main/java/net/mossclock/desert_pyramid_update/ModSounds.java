@@ -7,4 +7,7 @@ public class ModSounds {
     public static final SoundEvent TRAPPED_LIMESTONE_CYCLE = SoundEvent.of(
             Identifier.of("desert_pyramid_update", "block.trapped_limestone.cycle")
     );
+    public static final SoundEvent STATUE_BLESSING = SoundEvent.of(
+            Identifier.of("desert_pyramid_update", "block.statue.blessing")
+    );
 }

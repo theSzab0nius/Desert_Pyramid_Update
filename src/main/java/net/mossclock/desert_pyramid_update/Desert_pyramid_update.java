@@ -93,18 +93,15 @@ public class Desert_pyramid_update implements ModInitializer {
                     )
                     .then(CommandManager.literal("revoke")
                             .then(CommandManager.argument("player", EntityArgumentType.player())
-                                    .then(CommandManager.argument("blessing", StringArgumentType.word())
-                                            .suggests((context, builder) -> getBlessingSuggestions(builder))
-                                            .executes(context -> {
-                                                ServerPlayerEntity target = EntityArgumentType.getPlayer(context, "player");
-                                                revokeBlessing(target);
-                                                context.getSource().sendFeedback(
-                                                        () -> Text.of("Revoked blessings from " + target.getName().getString()),
-                                                        false
-                                                );
-                                                return 1;
-                                            })
-                                    )
+                                    .executes(context -> {
+                                        ServerPlayerEntity target = EntityArgumentType.getPlayer(context, "player");
+                                        revokeBlessing(target); // removes all blessings
+                                        context.getSource().sendFeedback(
+                                                () -> Text.of("Revoked all blessings from " + target.getName().getString()),
+                                                false
+                                        );
+                                        return 1;
+                                    })
                             )
                     )
                     .then(CommandManager.literal("list")
@@ -164,6 +161,12 @@ public class Desert_pyramid_update implements ModInitializer {
         if (player.getHealth() > max) {
             player.setHealth(max);
         }
+    }
+
+    public static boolean hasBlessing(ServerPlayerEntity player, Blessing blessing)
+    {
+        var data = player.getAttachedOrCreate(PLAYER_BLESSINGS, BlessingsData::new);
+        return data.activeBlessings().contains(blessing.id);
     }
 
     // --- VISUAL EFFECTS ---

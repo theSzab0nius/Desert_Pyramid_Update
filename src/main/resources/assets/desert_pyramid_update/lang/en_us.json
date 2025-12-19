@@ -11,11 +11,13 @@
   "block.desert_pyramid_update.booby_trap_door": "Booby Trap Door",
   "block.desert_pyramid_update.burial_urn": "Burial Urn",
   "block.desert_pyramid_update.trapped_limestone": "Trapped Limestone",
+  "block.desert_pyramid_update.khert_statue": "Statue of Khert",
 
   "painting.desert_pyramid_update.beetle.title": "Beetle",
   "painting.desert_pyramid_update.beetle.author": "MossClock",
 
   "effect.desert_pyramid_update.khert_blessing": "Current Blessing",
+  "effect.desert_pyramid_update.khert_blessing.description": "Your vitality feels strengthened",
   "effect.desert_pyramid_update.mnemon_insight": "Current Blessing",
   "effect.desert_pyramid_update.bellator_fury": "Current Blessing",
   "effect.desert_pyramid_update.ixkali_vigor": "Current Blessing",
@@ -24,6 +26,10 @@
   "effect.desert_pyramid_update.hoshikari_fortune": "Current Blessing",
   "effect.desert_pyramid_update.mor_ezen_grace": "Current Blessing",
   "effect.desert_pyramid_update.nyasari_vitality": "Current Blessing",
+  "effect.desert_pyramid_update.umbrath_shade": "Current Blessing",
+
+  "advancement.desert_pyramid_update.blessing_of_khert.title": "Blessing of Khert",
+  "advancement.desert_pyramid_update.blessing_of_khert.description": "idk yet",
 
   "enchantment.desert_pyramid_update.cobra_strike": "Cobra Strike",
   "enchantment.desert_pyramid_update.sands_of_time": "Sands Of Time",

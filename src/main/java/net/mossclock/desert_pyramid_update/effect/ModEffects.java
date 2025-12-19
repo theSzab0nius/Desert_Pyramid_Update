@@ -24,6 +24,7 @@ public class ModEffects {
     public static final StatusEffect HOSHIKARI_FORTUNE_RAW = new SimpleStatusEffect(StatusEffectCategory.BENEFICIAL, 0xFFFF00);
     public static final StatusEffect MOR_EZEN_GRACE_RAW = new SimpleStatusEffect(StatusEffectCategory.BENEFICIAL, 0x87CEEB);
     public static final StatusEffect NYASARI_VITALITY_RAW = new SimpleStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00FF00);
+    public static final StatusEffect UMBRATH_SHADE_RAW = new SimpleStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00FF00);
 
     // These are the RegistryEntry versions you will use in the Blessing enum
     public static final RegistryEntry<StatusEffect> KHERT_BLESSING;
@@ -35,6 +36,7 @@ public class ModEffects {
     public static final RegistryEntry<StatusEffect> HOSHIKARI_FORTUNE;
     public static final RegistryEntry<StatusEffect> MOR_EZEN_GRACE;
     public static final RegistryEntry<StatusEffect> NYASARI_VITALITY;
+    public static final RegistryEntry<StatusEffect> UMBRATH_SHADE;
 
     static {
         // Actually register them and get the RegistryEntry references
@@ -64,7 +66,10 @@ public class ModEffects {
 
         NYASARI_VITALITY = Registry.registerReference(Registries.STATUS_EFFECT,
                 Identifier.of("desert_pyramid_update", "nyasari_vitality"), NYASARI_VITALITY_RAW);
-    }
+
+        UMBRATH_SHADE = Registry.registerReference(Registries.STATUS_EFFECT,
+                    Identifier.of("desert_pyramid_update", "umbrath_shade"), UMBRATH_SHADE_RAW);
+        }
 
     public static void registerEffects() {
         // The static block above already registers everything when the class is loaded.

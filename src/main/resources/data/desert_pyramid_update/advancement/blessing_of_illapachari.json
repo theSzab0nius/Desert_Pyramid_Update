@@ -1,0 +1,22 @@
+{
+  "display": {
+    "icon": {
+      "id": "desert_pyramid_update:illapachari_statue"
+    },
+    "title": { "text": "§6§lBlessing of Illapachari" },
+    "description": { "text": "§7Generic armour toughness §8(§e+1 toughness§8)" },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "desert_pyramid_update:root",
+  "criteria": {
+    "impossible": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "rewards": {
+    "experience": 50
+  }
+}

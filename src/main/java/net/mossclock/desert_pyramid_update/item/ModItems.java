@@ -179,5 +179,8 @@ public class ModItems {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register(entries -> {
             entries.add(ModBlocks.TRAPPED_LIMESTONE_ITEM);
         });
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register(entries -> {
+            entries.add(ModBlocks.KHERT_STATUTE_ITEM);
+        });
     }
 }

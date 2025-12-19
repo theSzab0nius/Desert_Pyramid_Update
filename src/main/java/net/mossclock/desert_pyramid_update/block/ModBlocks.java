@@ -42,6 +42,19 @@ public class ModBlocks {
                     .sounds(BlockSoundGroup.STONE)
                     .nonOpaque()));
 
+    static final Block KHERT_STATUE = registerBlock("khert_statue",
+            new KhertStatueBlock(AbstractBlock.Settings.create()
+                    .strength(1.5f, 6.0f)   // hardness 1.5f, resistance 6.0f — exact vanilla stone values
+                    .requiresTool()         // crucial: massive slowdown without correct tool + no drops if you want that
+                    .sounds(BlockSoundGroup.STONE)
+                    .nonOpaque()));
+
+    public static final BlockItem KHERT_STATUTE_ITEM = Registry.register(
+            Registries.ITEM,
+            Identifier.of(Desert_pyramid_update.MOD_ID, "khert_statue"),
+            new BlockItem(KHERT_STATUE, new Item.Settings())
+    );
+
     public static final BlockItem TRAPPED_LIMESTONE_ITEM = Registry.register(
             Registries.ITEM,
             Identifier.of(Desert_pyramid_update.MOD_ID, "trapped_limestone"),

@@ -15,7 +15,7 @@ public enum Blessing {
     BLESSING_OF_KHERT(
             "blessing_of_khert",
             ModEffects.KHERT_BLESSING,
-            EntityAttributes.GENERIC_ARMOR_TOUGHNESS,
+            EntityAttributes.GENERIC_ARMOR,
             2.0
     ),
 
@@ -80,7 +80,14 @@ public enum Blessing {
             ModEffects.NYASARI_VITALITY,
             EntityAttributes.GENERIC_MAX_HEALTH,
             2.0
-    );
+    ),
+
+    BLESSING_OF_UMBRATH(
+    "blessing_of_umbrath",
+    ModEffects.UMBRATH_SHADE,  // Icon: swirling black void with red slit eyes
+    EntityAttributes.PLAYER_SNEAKING_SPEED,
+    0.15  // +50% sneak — zippy stealth
+    ),;
 
     public final String id;
 

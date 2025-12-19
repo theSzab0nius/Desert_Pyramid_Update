@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "desert_pyramid_update:trapped_limestone"
+    "desert_pyramid_update:trapped_limestone",
+    "desert_pyramid_update:khert_statue"
   ]
 }

@@ -3,5 +3,10 @@
     "sounds": [
       "desert_pyramid_update:block/trapped_limestone/cycle"
     ]
+  },
+  "block.statue.blessing": {
+    "sounds": [
+      "desert_pyramid_update:block/statue/blessing"
+    ]
   }
 }
