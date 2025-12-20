@@ -3,7 +3,7 @@
     "icon": {
       "id": "desert_pyramid_update:mor_ezen_statue"
     },
-    "title": { "text": "§6§lBlessing of Moz-ezen" },
+    "title": { "text": "§6§lBlessing of Mor-ezen" },
     "description": { "text": "§7Generic armour toughness §8(§e+1 toughness§8)" },
     "frame": "challenge",
     "show_toast": true,

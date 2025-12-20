@@ -2,6 +2,18 @@
   "replace": false,
   "values": [
     "desert_pyramid_update:trapped_limestone",
-    "desert_pyramid_update:khert_statue"
+    "desert_pyramid_update:khert_statue",
+    "desert_pyramid_update:mnemon_statue",
+    "desert_pyramid_update:bellator_statue",
+    "desert_pyramid_update:ix_kali_statue",
+    "desert_pyramid_update:avasura_statue",
+    "desert_pyramid_update:illapachari_statue",
+    "desert_pyramid_update:avasura_statue",
+    "desert_pyramid_update:hoshikari_statue",
+    "desert_pyramid_update:mor_ezen_statue",
+    "desert_pyramid_update:nyasari_statue",
+    "desert_pyramid_update:umbrath_statue",
+    "desert_pyramid_update:forgathor_statue",
+    "desert_pyramid_update:nameless_statue"
   ]
 }

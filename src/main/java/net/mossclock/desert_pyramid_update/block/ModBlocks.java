@@ -55,6 +55,149 @@ public class ModBlocks {
             new BlockItem(KHERT_STATUE, new Item.Settings())
     );
 
+    static final Block MNEMON_STATUE = registerBlock("mnemon_statue",
+            new MnemonStatueBlock(AbstractBlock.Settings.create()
+                    .strength(1.5f, 6.0f)   // hardness 1.5f, resistance 6.0f — exact vanilla stone values
+                    .requiresTool()         // crucial: massive slowdown without correct tool + no drops if you want that
+                    .sounds(BlockSoundGroup.STONE)
+                    .nonOpaque()));
+
+    public static final BlockItem MNEMON_STATUTE_ITEM = Registry.register(
+            Registries.ITEM,
+            Identifier.of(Desert_pyramid_update.MOD_ID, "mnemon_statue"),
+            new BlockItem(MNEMON_STATUE, new Item.Settings())
+    );
+
+    static final Block BELLATOR_STATUE = registerBlock("bellator_statue",
+            new BellatorStatueBlock(AbstractBlock.Settings.create()
+                    .strength(1.5f, 6.0f)   // hardness 1.5f, resistance 6.0f — exact vanilla stone values
+                    .requiresTool()         // crucial: massive slowdown without correct tool + no drops if you want that
+                    .sounds(BlockSoundGroup.STONE)
+                    .nonOpaque()));
+
+    public static final BlockItem BELLATOR_STATUTE_ITEM = Registry.register(
+            Registries.ITEM,
+            Identifier.of(Desert_pyramid_update.MOD_ID, "bellator_statue"),
+            new BlockItem(BELLATOR_STATUE, new Item.Settings())
+    );
+
+    static final Block IX_KALI_STATUE = registerBlock("ix_kali_statue",
+            new IxKaliStatueBlock(AbstractBlock.Settings.create()
+                    .strength(1.5f, 6.0f)   // hardness 1.5f, resistance 6.0f — exact vanilla stone values
+                    .requiresTool()         // crucial: massive slowdown without correct tool + no drops if you want that
+                    .sounds(BlockSoundGroup.STONE)
+                    .nonOpaque()));
+
+    public static final BlockItem IX_KALI_STATUTE_ITEM = Registry.register(
+            Registries.ITEM,
+            Identifier.of(Desert_pyramid_update.MOD_ID, "ix_kali_statue"),
+            new BlockItem(IX_KALI_STATUE, new Item.Settings())
+    );
+
+    static final Block AVASURA_STATUE = registerBlock("avasura_statue",
+            new AvasuraStatueBlock(AbstractBlock.Settings.create()
+                    .strength(1.5f, 6.0f)   // hardness 1.5f, resistance 6.0f — exact vanilla stone values
+                    .requiresTool()         // crucial: massive slowdown without correct tool + no drops if you want that
+                    .sounds(BlockSoundGroup.STONE)
+                    .nonOpaque()));
+
+    public static final BlockItem AVASURA_STATUTE_ITEM = Registry.register(
+            Registries.ITEM,
+            Identifier.of(Desert_pyramid_update.MOD_ID, "avasura_statue"),
+            new BlockItem(AVASURA_STATUE, new Item.Settings())
+    );
+
+    static final Block ILLAPACHARI_STATUE = registerBlock("illapachari_statue",
+            new IllapachariStatueBlock(AbstractBlock.Settings.create()
+                    .strength(1.5f, 6.0f)   // hardness 1.5f, resistance 6.0f — exact vanilla stone values
+                    .requiresTool()         // crucial: massive slowdown without correct tool + no drops if you want that
+                    .sounds(BlockSoundGroup.STONE)
+                    .nonOpaque()));
+
+    public static final BlockItem ILLAPACHARI_STATUTE_ITEM = Registry.register(
+            Registries.ITEM,
+            Identifier.of(Desert_pyramid_update.MOD_ID, "illapachari_statue"),
+            new BlockItem(ILLAPACHARI_STATUE, new Item.Settings())
+    );
+
+    static final Block HOSHIKARI_STATUE = registerBlock("hoshikari_statue",
+            new HoshikariStatueBlock(AbstractBlock.Settings.create()
+                    .strength(1.5f, 6.0f)   // hardness 1.5f, resistance 6.0f — exact vanilla stone values
+                    .requiresTool()         // crucial: massive slowdown without correct tool + no drops if you want that
+                    .sounds(BlockSoundGroup.STONE)
+                    .nonOpaque()));
+
+    public static final BlockItem HOSHIKARI_STATUTE_ITEM = Registry.register(
+            Registries.ITEM,
+            Identifier.of(Desert_pyramid_update.MOD_ID, "hoshikari_statue"),
+            new BlockItem(HOSHIKARI_STATUE, new Item.Settings())
+    );
+
+    static final Block MOR_EZEN_STATUE = registerBlock("mor_ezen_statue",
+            new MorEzenStatueBlock(AbstractBlock.Settings.create()
+                    .strength(1.5f, 6.0f)   // hardness 1.5f, resistance 6.0f — exact vanilla stone values
+                    .requiresTool()         // crucial: massive slowdown without correct tool + no drops if you want that
+                    .sounds(BlockSoundGroup.STONE)
+                    .nonOpaque()));
+
+    public static final BlockItem MOR_EZEN_STATUTE_ITEM = Registry.register(
+            Registries.ITEM,
+            Identifier.of(Desert_pyramid_update.MOD_ID, "mor_ezen_statue"),
+            new BlockItem(MOR_EZEN_STATUE, new Item.Settings())
+    );
+
+    static final Block NYASARI_STATUE = registerBlock("nyasari_statue",
+            new NyasariStatueBlock(AbstractBlock.Settings.create()
+                    .strength(1.5f, 6.0f)   // hardness 1.5f, resistance 6.0f — exact vanilla stone values
+                    .requiresTool()         // crucial: massive slowdown without correct tool + no drops if you want that
+                    .sounds(BlockSoundGroup.STONE)
+                    .nonOpaque()));
+
+    public static final BlockItem NYASARI_STATUTE_ITEM = Registry.register(
+            Registries.ITEM,
+            Identifier.of(Desert_pyramid_update.MOD_ID, "nyasari_statue"),
+            new BlockItem(NYASARI_STATUE, new Item.Settings())
+    );
+
+    static final Block UMBRATH_STATUE = registerBlock("umbrath_statue",
+            new UmbrathStatueBlock(AbstractBlock.Settings.create()
+                    .strength(1.5f, 6.0f)   // hardness 1.5f, resistance 6.0f — exact vanilla stone values
+                    .requiresTool()         // crucial: massive slowdown without correct tool + no drops if you want that
+                    .sounds(BlockSoundGroup.STONE)
+                    .nonOpaque()));
+
+    public static final BlockItem UMBRATH_STATUTE_ITEM = Registry.register(
+            Registries.ITEM,
+            Identifier.of(Desert_pyramid_update.MOD_ID, "umbrath_statue"),
+            new BlockItem(UMBRATH_STATUE, new Item.Settings())
+    );
+
+    static final Block FORGATHOR_STATUE = registerBlock("forgathor_statue",
+            new ForgathorStatueBlock(AbstractBlock.Settings.create()
+                    .strength(1.5f, 6.0f)   // hardness 1.5f, resistance 6.0f — exact vanilla stone values
+                    .requiresTool()         // crucial: massive slowdown without correct tool + no drops if you want that
+                    .sounds(BlockSoundGroup.STONE)
+                    .nonOpaque()));
+
+    public static final BlockItem FORGATHOR_STATUTE_ITEM = Registry.register(
+            Registries.ITEM,
+            Identifier.of(Desert_pyramid_update.MOD_ID, "forgathor_statue"),
+            new BlockItem(FORGATHOR_STATUE, new Item.Settings())
+    );
+
+    static final Block NAMELESS_STATUE = registerBlock("nameless_statue",
+            new NamelessStatueBlock(AbstractBlock.Settings.create()
+                    .strength(1.5f, 6.0f)   // hardness 1.5f, resistance 6.0f — exact vanilla stone values
+                    .requiresTool()         // crucial: massive slowdown without correct tool + no drops if you want that
+                    .sounds(BlockSoundGroup.STONE)
+                    .nonOpaque()));
+
+    public static final BlockItem NAMELESS_STATUTE_ITEM = Registry.register(
+            Registries.ITEM,
+            Identifier.of(Desert_pyramid_update.MOD_ID, "nameless_statue"),
+            new BlockItem(NAMELESS_STATUE, new Item.Settings())
+    );
+
     public static final BlockItem TRAPPED_LIMESTONE_ITEM = Registry.register(
             Registries.ITEM,
             Identifier.of(Desert_pyramid_update.MOD_ID, "trapped_limestone"),

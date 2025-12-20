@@ -11,7 +11,7 @@ import net.mossclock.desert_pyramid_update.effect.ModEffects;
 
 public enum Blessing {
 
-    // Egyptian – Afterlife / Protection
+
     BLESSING_OF_KHERT(
             "blessing_of_khert",
             ModEffects.KHERT_BLESSING,
@@ -19,7 +19,7 @@ public enum Blessing {
             2.0
     ),
 
-    // Greek – Knowledge / Wisdom
+
     BLESSING_OF_MNEMON(
             "blessing_of_mnemon",
             ModEffects.MNEMON_INSIGHT,
@@ -27,7 +27,7 @@ public enum Blessing {
             0.15
     ),
 
-    // Roman – War / Valor
+
     BLESSING_OF_BELLATOR(
             "blessing_of_bellator",
             ModEffects.BELLATOR_FURY,
@@ -35,14 +35,14 @@ public enum Blessing {
             1.0
     ),
 
-    // Mesoamerican – Sun / Life
+
     BLESSING_OF_IXKALI(
             "blessing_of_ixkali",
             ModEffects.IXKALI_VIGOR,
             EntityAttributes.GENERIC_JUMP_STRENGTH,
             0.08
             ),
-    // South / East Asian – Protection / Enlightenment
+
     BLESSING_OF_AVASURA(
             "blessing_of_avasura",
             ModEffects.AVASURA_PEACE,
@@ -50,7 +50,7 @@ public enum Blessing {
             0.2
     ),
 
-    // Incan – Storms / Mountains
+
     BLESSING_OF_ILLAPACHARI(
             "blessing_of_illapachari",
             ModEffects.ILLAPACHARI_SPEED,
@@ -58,7 +58,7 @@ public enum Blessing {
             0.5
     ),
 
-    // East Asian – Prosperity / Harvest
+
     BLESSING_OF_HOSHIKARI(
             "blessing_of_hoshikari",
             ModEffects.HOSHIKARI_FORTUNE,
@@ -66,7 +66,7 @@ public enum Blessing {
             1.0
     ),
 
-    // Eurasian Steppe – Wind / Horse Spirit
+
     BLESSING_OF_MOR_EZEN(
             "blessing_of_mor_ezen",
             ModEffects.MOR_EZEN_GRACE,
@@ -74,7 +74,7 @@ public enum Blessing {
             0.05
     ),
 
-    // Sub-Saharan African – Rain / Vitality
+
     BLESSING_OF_NYASARI(
             "blessing_of_nyasari",
             ModEffects.NYASARI_VITALITY,
@@ -84,12 +84,12 @@ public enum Blessing {
 
     BLESSING_OF_UMBRATH(
     "blessing_of_umbrath",
-    ModEffects.UMBRATH_SHADE,  // Icon: swirling black void with red slit eyes
+    ModEffects.UMBRATH_SHADE,
     EntityAttributes.PLAYER_SNEAKING_SPEED,
-    0.15  // +50% sneak — zippy stealth
+    0.15
     ),
 
-    BLESSING_OF_FORGATHOR(  // "Forge Hammer" vibe
+    BLESSING_OF_FORGATHOR(
             "blessing_of_forgathor",
             ModEffects.FORGATHOR_FORGE,
             EntityAttributes.PLAYER_MINING_EFFICIENCY,
@@ -98,7 +98,6 @@ public enum Blessing {
 
     public final String id;
 
-    // One of these will be non-null
     public final RegistryEntry<EntityAttribute> attribute;
     public final RegistryEntry<StatusEffect> statusEffect;
 
