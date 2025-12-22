@@ -29,13 +29,18 @@ import net.minecraft.command.argument.EntityArgumentType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Desert_pyramid_update implements ModInitializer {
+
     public static final String MOD_ID = "desert_pyramid_update";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
     public static final Identifier BLESSINGS_ID = Identifier.of(MOD_ID, "blessings");
+    private static final Map<UUID, Boolean> temporarilyRemovedMorEzen = new ConcurrentHashMap<>();
     public static AttachmentType<BlessingsData> PLAYER_BLESSINGS;
 
     @Override
@@ -59,11 +64,30 @@ public class Desert_pyramid_update implements ModInitializer {
 
         // Tick loop: refresh beacon-style effects every 5 ticks
         ServerTickEvents.END_WORLD_TICK.register(world -> {
-            if (world.getTime() % 5 != 0) return;
+            //if (world.getTime() % 5 != 0) return;
+            
             for (ServerPlayerEntity player : world.getPlayers()) {
+
+                UUID playerId = player.getUuid();
+
+                if (hasBlessing(player, Blessing.BLESSING_OF_MOR_EZEN) && player.isSneaking()) {
+                    // Only remove if not already temporarily removed
+                    if (!temporarilyRemovedMorEzen.getOrDefault(playerId, false)) {
+                        TrevokeBlessing(player); // your duplicate method
+                        temporarilyRemovedMorEzen.put(playerId, true);
+                    }
+                } else {
+                    // Reapply if they were previously removed
+                    if (temporarilyRemovedMorEzen.getOrDefault(playerId, false) && !player.isSneaking()) {
+                        grantBlessing(player, Blessing.BLESSING_OF_MOR_EZEN);
+                        temporarilyRemovedMorEzen.put(playerId, false);
+                    }
+                }
+
                 applyBeaconStyleEffects(player);
             }
         });
+
 
         // Commands
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
@@ -124,6 +148,7 @@ public class Desert_pyramid_update implements ModInitializer {
         });
     }
 
+
     // --- ATTRIBUTE LOGIC ---
     public static void grantBlessing(ServerPlayerEntity player, Blessing blessing) {
         var current = player.getAttachedOrCreate(PLAYER_BLESSINGS, BlessingsData::new);
@@ -163,6 +188,23 @@ public class Desert_pyramid_update implements ModInitializer {
         }
     }
 
+    public static void TrevokeBlessing(ServerPlayerEntity player) {
+        player.setAttached(PLAYER_BLESSINGS, new BlessingsData());
+
+        for (Blessing b : Blessing.values()) {
+
+            var inst = player.getAttributeInstance(b.attribute);
+            if (inst != null) {
+                inst.removeModifier(b.createModifier());
+            }
+        }
+
+        float max = player.getMaxHealth();
+        if (player.getHealth() > max) {
+            player.setHealth(max);
+        }
+    }
+
     public static boolean hasBlessing(ServerPlayerEntity player, Blessing blessing)
     {
         var data = player.getAttachedOrCreate(PLAYER_BLESSINGS, BlessingsData::new);
@@ -178,7 +220,7 @@ public class Desert_pyramid_update implements ModInitializer {
                 if (b.statusEffect != null) {
                     player.addStatusEffect(new StatusEffectInstance(
                             b.statusEffect,
-                            200,   // 10s
+                            -1,   // 10s
                             0,
                             true,  // ambient (beacon-like)
                             false, // no particles
